@@ -1694,42 +1694,5 @@
       "patient_id": 69289,
       "lab_name": "mcv"
     }
-  },
-  {
-    "scenario_id": "dbrN0dDRPW3E3UoC",
-    "turns": [
-      {
-        "turn": 1,
-        "T1": "2103-10-10 23:00:00",
-        "question": "Over the past 38 months, on each day, what was the largest single infusion amount of .9% normal saline given to patient 25493 during ICU stays?",
-        "query": "select max(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 25493 ) ) and inputevents_cv.itemid in ( select d_items.itemid from d_items where d_items.label = '.9% normal saline' and d_items.linksto = 'inputevents_cv' ) and datetime(inputevents_cv.charttime) >= datetime('2103-10-10 23:00:00','-38 month') group by strftime('%y-%m-%d',inputevents_cv.charttime)",
-        "sql_result": [
-          [
-            25.0
-          ]
-        ],
-        "answer": "25.0"
-      },
-      {
-        "turn": 2,
-        "T2": "2103-10-11 00:00:00",
-        "question": "Has the maximum daily .9% normal saline infusion amount changed?",
-        "query": "select max(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 25493 ) ) and inputevents_cv.itemid in ( select d_items.itemid from d_items where d_items.label = '.9% normal saline' and d_items.linksto = 'inputevents_cv' ) and datetime(inputevents_cv.charttime) >= datetime('2103-10-11 00:00:00','-38 month') group by strftime('%y-%m-%d',inputevents_cv.charttime)",
-        "sql_result": [
-          [
-            25.0
-          ],
-          [
-            10.0
-          ]
-        ],
-        "answer": "No"
-      }
-    ],
-    "q_tag": "list the [unit_average] [agg_function] volume of {intake_name} intake that patient {patient_id} received [time_filter_global1].",
-    "value": {
-      "patient_id": 25493,
-      "intake_name": ".9% normal saline"
-    }
   }
 ]
