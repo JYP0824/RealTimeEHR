@@ -1,0 +1,1735 @@
+[
+  {
+    "scenario_id": "nbwt0OG6tXRcuuha",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-07-12 13:40:00",
+        "question": "What is patient 19096’s net fluid balance (total intake minus output) during this year across their ICU stays?",
+        "query": "select ( select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 19096 ) ) and datetime(inputevents_cv.charttime,'start of year') = datetime('2105-07-12 13:40:00','start of year','-0 year') ) - ( select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 19096 ) ) and datetime(outputevents.charttime,'start of year') = datetime('2105-07-12 13:40:00','start of year','-0 year') )",
+        "sql_result": [
+          [
+            -3146.2810957731
+          ]
+        ],
+        "answer": "-3146.2810957731"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-07-12 14:00:00",
+        "question": "By how much has the annual ICU net fluid balance changed?",
+        "query": "select ( select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 19096 ) ) and datetime(inputevents_cv.charttime,'start of year') = datetime('2105-07-12 14:00:00','start of year','-0 year') ) - ( select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 19096 ) ) and datetime(outputevents.charttime,'start of year') = datetime('2105-07-12 14:00:00','start of year','-0 year') )",
+        "sql_result": [
+          [
+            -3161.2810957731
+          ]
+        ],
+        "answer": "-15.0"
+      }
+    ],
+    "q_tag": "what is the difference between the total volume of intake and output of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 19096
+    }
+  },
+  {
+    "scenario_id": "KXeHytvepXThItS3",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-11-03 03:00:00",
+        "question": "For patient 27703, what is the total volume of sterile water administered this month?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 27703 ) ) and inputevents_cv.itemid in ( select d_items.itemid from d_items where d_items.label = 'sterile water' and d_items.linksto = 'inputevents_cv' ) and datetime(inputevents_cv.charttime,'start of month') = datetime('2105-11-03 03:00:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            130.0
+          ]
+        ],
+        "answer": "130.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-11-03 05:00:00",
+        "question": "What is the change in total sterile water volume?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 27703 ) ) and inputevents_cv.itemid in ( select d_items.itemid from d_items where d_items.label = 'sterile water' and d_items.linksto = 'inputevents_cv' ) and datetime(inputevents_cv.charttime,'start of month') = datetime('2105-11-03 05:00:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            180.0
+          ]
+        ],
+        "answer": "+50.0"
+      }
+    ],
+    "q_tag": "what was the total volume of {intake_name} intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 27703,
+      "intake_name": "sterile water"
+    }
+  },
+  {
+    "scenario_id": "deUKmaRM4t12pi5H",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-03-22 04:00:00",
+        "question": "For patient 20801, what is the total chest tubes cticu ct 1 output recorded this year?",
+        "query": "select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 20801 ) ) and outputevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'chest tubes cticu ct 1' and d_items.linksto = 'outputevents' ) and datetime(outputevents.charttime,'start of year') = datetime('2104-03-22 04:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            50.0
+          ]
+        ],
+        "answer": "50.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-03-22 15:00:00",
+        "question": "What is the change in total chest tubes cticu ct 1 output?",
+        "query": "select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 20801 ) ) and outputevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'chest tubes cticu ct 1' and d_items.linksto = 'outputevents' ) and datetime(outputevents.charttime,'start of year') = datetime('2104-03-22 15:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            80.0
+          ]
+        ],
+        "answer": "+30.0"
+      }
+    ],
+    "q_tag": "what was the total volume of {output_name} output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 20801,
+      "output_name": "chest tubes cticu ct 1"
+    }
+  },
+  {
+    "scenario_id": "OZyjyD4hp2MmIiWn",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2102-08-04 02:30:00",
+        "question": "For patient 19059, list the lowest red blood cells result for each day this year.",
+        "query": "select min(labevents.valuenum) from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 19059 ) and labevents.itemid in ( select d_labitems.itemid from d_labitems where d_labitems.label = 'red blood cells' ) and datetime(labevents.charttime,'start of year') = datetime('2102-08-04 02:30:00','start of year','-0 year') group by strftime('%y-%m-%d',labevents.charttime)",
+        "sql_result": [
+          [
+            3.96
+          ],
+          [
+            2.5
+          ]
+        ],
+        "answer": "3.96; 2.5"
+      },
+      {
+        "turn": 2,
+        "T2": "2102-08-04 03:24:00",
+        "question": "Has the lowest daily red blood cells dropped further?",
+        "query": "select min(labevents.valuenum) from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 19059 ) and labevents.itemid in ( select d_labitems.itemid from d_labitems where d_labitems.label = 'red blood cells' ) and datetime(labevents.charttime,'start of year') = datetime('2102-08-04 03:24:00','start of year','-0 year') group by strftime('%y-%m-%d',labevents.charttime)",
+        "sql_result": [
+          [
+            3.96
+          ],
+          [
+            2.5
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "list the [unit_average] [agg_function] {lab_name} lab value of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "patient_id": 19059,
+      "lab_name": "red blood cells"
+    }
+  },
+  {
+    "scenario_id": "dSQJMgHPmeocRkVY",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-01-31 00:00:00",
+        "question": "What is the total hospital cost for patient 21079 so far this year?",
+        "query": "select sum(cost.cost) from cost where cost.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 21079 ) and datetime(cost.chargetime,'start of year') = datetime('2105-01-31 00:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            1223.84
+          ]
+        ],
+        "answer": "1223.84"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-01-31 00:14:00",
+        "question": "What is the change in year-to-date total hospital cost for this patient?",
+        "query": "select sum(cost.cost) from cost where cost.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 21079 ) and datetime(cost.chargetime,'start of year') = datetime('2105-01-31 00:14:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            1312.72
+          ]
+        ],
+        "answer": "+88.88"
+      }
+    ],
+    "q_tag": "what is_verb the total hospital cost of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 21079
+    }
+  },
+  {
+    "scenario_id": "TY7szXZglue35FRV",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-08-24 23:27:00",
+        "question": "During the current hospital admission, has patient 23929 had any lab tests performed?",
+        "query": "select count(*)>0 from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 23929 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-08-24 23:42:00",
+        "question": "Any additional laboratory tests performed for the current admission?",
+        "query": "select count(*)>0 from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 23929 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and labevents.charttime > '2104-08-24 23:27:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} received any lab test [time_filter_global1]?",
+    "value": {
+      "patient_id": 23929
+    }
+  },
+  {
+    "scenario_id": "0VYPUGYKMoERVYQ6",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-06-02 08:00:00",
+        "question": "For patient 31510, what is the total amount of .9% normal saline administered during this year?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 31510 ) ) and inputevents_cv.itemid in ( select d_items.itemid from d_items where d_items.label = '.9% normal saline' and d_items.linksto = 'inputevents_cv' ) and datetime(inputevents_cv.charttime,'start of year') = datetime('2105-06-02 08:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            162.5
+          ]
+        ],
+        "answer": "162.5"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-06-02 09:00:00",
+        "question": "How much additional .9% normal saline has been administered?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 31510 ) ) and inputevents_cv.itemid in ( select d_items.itemid from d_items where d_items.label = '.9% normal saline' and d_items.linksto = 'inputevents_cv' ) and datetime(inputevents_cv.charttime,'start of year') = datetime('2105-06-02 09:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            252.5
+          ]
+        ],
+        "answer": "+90.0"
+      }
+    ],
+    "q_tag": "what was the total volume of {intake_name} intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 31510,
+      "intake_name": ".9% normal saline"
+    }
+  },
+  {
+    "scenario_id": "V7wUwNPfcGfmxpgk",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-28 02:25:00",
+        "question": "In this hospital admission, was patient 31854’s arterial bp [systolic] ever below 126?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 31854 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [systolic]' and d_items.linksto = 'chartevents' ) and chartevents.valuenum < 126.0",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-28 02:40:00",
+        "question": "Has arterial bp [systolic] dropped below 126 again?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 31854 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [systolic]' and d_items.linksto = 'chartevents' ) and chartevents.valuenum < 126.0 and chartevents.charttime > '2105-12-28 02:25:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been ever [comparison] than {vital_value} [time_filter_global1]?",
+    "value": {
+      "patient_id": 31854,
+      "vital_name": "arterial bp [systolic]",
+      "vital_value": 126.0
+    }
+  },
+  {
+    "scenario_id": "vSAX6kyAMgzUpHyD",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-02 09:30:00",
+        "question": "In patient 14467, is the most recent arterial bp [diastolic] during this ICU stay higher than the previous reading?",
+        "query": "select ( select chartevents.valuenum from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 14467 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is null ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) order by chartevents.charttime desc limit 1 ) > ( select chartevents.valuenum from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 14467 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is null ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) order by chartevents.charttime desc limit 1 offset 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-02 09:45:00",
+        "question": "Is the latest arterial bp [diastolic] no longer higher than the prior reading?",
+        "query": "select ( select chartevents.valuenum from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 14467 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is null ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) order by chartevents.charttime desc limit 1 ) > ( select chartevents.valuenum from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 14467 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is null ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) order by chartevents.charttime desc limit 1 offset 1 )",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "is the {vital_name} of patient {patient_id} [time_filter_exact2] measured [time_filter_global2] [comparison] than the [time_filter_exact1] value measured [time_filter_global1]?",
+    "value": {
+      "patient_id": 14467,
+      "vital_name": "arterial bp [diastolic]"
+    }
+  },
+  {
+    "scenario_id": "4W2gJg9G6DBy8rzR",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-10-31 06:54:00",
+        "question": "During this hospital admission, were any eosinophils labs obtained for patient 14054?",
+        "query": "select count(*)>0 from labevents where labevents.itemid in ( select d_labitems.itemid from d_labitems where d_labitems.label = 'eosinophils' ) and labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 14054 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-10-31 15:30:00",
+        "question": "Have additional eosinophils results been resulted?",
+        "query": "select count(*)>0 from labevents where labevents.itemid in ( select d_labitems.itemid from d_labitems where d_labitems.label = 'eosinophils' ) and labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 14054 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and labevents.charttime > '2105-10-31 06:54:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} received a {lab_name} lab test [time_filter_global1]?",
+    "value": {
+      "patient_id": 14054,
+      "lab_name": "eosinophils"
+    }
+  },
+  {
+    "scenario_id": "bqepNQ6ZaKjlP89Q",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-20 10:00:00",
+        "question": "During this hospital admission for patient 1114, were any heart rate measurements within the normal range?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 1114 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'heart rate' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between heart_rate_lower and heart_rate_upper",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-20 10:15:00",
+        "question": "Any new heart rate values within the normal range?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 1114 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'heart rate' and d_items.linksto = 'chartevents' ) and chartevents.charttime > '2105-12-20 10:00:00' and chartevents.valuenum between heart_rate_lower and heart_rate_upper",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been normal [time_filter_global1]?",
+    "value": {
+      "patient_id": 1114,
+      "vital_name": "heart rate"
+    }
+  },
+  {
+    "scenario_id": "nhNvr1JCPld0lRTZ",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-05-30 01:30:00",
+        "question": "What is the net fluid balance for patient 3929 this month (total intake minus total output across all ICU stays)?",
+        "query": "select ( select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 3929 ) ) and datetime(inputevents_cv.charttime,'start of month') = datetime('2105-05-30 01:30:00','start of month','-0 month') ) - ( select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 3929 ) ) and datetime(outputevents.charttime,'start of month') = datetime('2105-05-30 01:30:00','start of month','-0 month') )",
+        "sql_result": [
+          [
+            -2012.691244781
+          ]
+        ],
+        "answer": "-2012.691244781"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-05-30 01:45:00",
+        "question": "What is the change in this month's net fluid balance?",
+        "query": "select ( select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 3929 ) ) and datetime(inputevents_cv.charttime,'start of month') = datetime('2105-05-30 01:45:00','start of month','-0 month') ) - ( select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 3929 ) ) and datetime(outputevents.charttime,'start of month') = datetime('2105-05-30 01:45:00','start of month','-0 month') )",
+        "sql_result": [
+          [
+            -2027.9312445521
+          ]
+        ],
+        "answer": "-15.2399997711"
+      }
+    ],
+    "q_tag": "what is the difference between the total volume of intake and output of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 3929
+    }
+  },
+  {
+    "scenario_id": "pi67jEjnqvJYfDy1",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-27 15:30:00",
+        "question": "Looking back over the past 1926 days, what was the most recent intake recorded for patient 16572 during an ICU stay?",
+        "query": "select d_items.label from d_items where d_items.itemid in ( select inputevents_cv.itemid from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 16572 ) ) and datetime(inputevents_cv.charttime) >= datetime('2100-03-27 15:30:00','-1926 day') order by inputevents_cv.charttime desc limit 1 )",
+        "sql_result": [
+          [
+            ".9% normal saline"
+          ]
+        ],
+        "answer": ".9% normal saline"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-27 16:00:00",
+        "question": "Is the latest ICU intake still .9% normal saline?",
+        "query": "select d_items.label from d_items where d_items.itemid in ( select inputevents_cv.itemid from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 16572 ) ) and datetime(inputevents_cv.charttime) >= datetime('2100-03-27 16:00:00','-1926 day') order by inputevents_cv.charttime desc limit 1 )",
+        "sql_result": [
+          [
+            "s 24 fe po"
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the name of the intake that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 16572
+    }
+  },
+  {
+    "scenario_id": "FQD2PCINRvRuuBGO",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2102-05-25 08:00:00",
+        "question": "For patient 12797, what is the minimum arterial bp [systolic] for each month during this hospital admission?",
+        "query": "select min(chartevents.valuenum) from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 12797 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [systolic]' and d_items.linksto = 'chartevents' ) group by strftime('%y-%m',chartevents.charttime)",
+        "sql_result": [
+          [
+            91.0
+          ]
+        ],
+        "answer": "91.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2102-05-25 08:30:00",
+        "question": "Has the minimum arterial bp [systolic] changed?",
+        "query": "select min(chartevents.valuenum) from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 12797 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [systolic]' and d_items.linksto = 'chartevents' ) group by strftime('%y-%m',chartevents.charttime)",
+        "sql_result": [
+          [
+            91.0
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "list the [unit_average] [agg_function] {vital_name} of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "patient_id": 12797,
+      "vital_name": "arterial bp [systolic]"
+    }
+  },
+  {
+    "scenario_id": "GpZYeSxMlUjDQojp",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-24 19:00:00",
+        "question": "During the current hospital stay, has patient 40059 had any lab tests performed?",
+        "query": "select count(*)>0 from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 40059 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-24 19:22:00",
+        "question": "Any new lab results for this admission?",
+        "query": "select count(*)>0 from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 40059 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and labevents.charttime > '2105-12-24 19:00:00'",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} received any lab test [time_filter_global1]?",
+    "value": {
+      "patient_id": 40059
+    }
+  },
+  {
+    "scenario_id": "dJc71R9jvo9XI4iN",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2102-10-30 14:02:00",
+        "question": "What was the most recent lab test performed for patient 29410 during this hospital admission?",
+        "query": "select d_labitems.label from d_labitems where d_labitems.itemid in ( select labevents.itemid from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 29410 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) order by labevents.charttime desc limit 1 )",
+        "sql_result": [
+          [
+            "mcv"
+          ]
+        ],
+        "answer": "mcv"
+      },
+      {
+        "turn": 2,
+        "T2": "2102-10-30 21:12:00",
+        "question": "Did the most recent lab test change?",
+        "query": "select d_labitems.label from d_labitems where d_labitems.itemid in ( select labevents.itemid from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 29410 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) order by labevents.charttime desc limit 1 )",
+        "sql_result": [
+          [
+            "glucose"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the lab test that patient {patient_id} [time_filter_exact1] received [time_filter_global1]?",
+    "value": {
+      "patient_id": 29410
+    }
+  },
+  {
+    "scenario_id": "3lgplQF621dlpGNb",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-08-09 07:28:00",
+        "question": "For patient 18678, during this hospital admission, what is the highest mchc value for each month?",
+        "query": "select max(labevents.valuenum) from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 18678 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and labevents.itemid in ( select d_labitems.itemid from d_labitems where d_labitems.label = 'mchc' ) group by strftime('%y-%m',labevents.charttime)",
+        "sql_result": [
+          [
+            35.9
+          ]
+        ],
+        "answer": "35.9"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-08-09 12:32:00",
+        "question": "Has the maximum mchc changed?",
+        "query": "select max(labevents.valuenum) from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 18678 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and labevents.itemid in ( select d_labitems.itemid from d_labitems where d_labitems.label = 'mchc' ) group by strftime('%y-%m',labevents.charttime)",
+        "sql_result": [
+          [
+            35.9
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "list the [unit_average] [agg_function] {lab_name} lab value of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "patient_id": 18678,
+      "lab_name": "mchc"
+    }
+  },
+  {
+    "scenario_id": "gFb4KpiaH3aXiDz0",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2101-08-15 13:00:00",
+        "question": "During this admission, did patient 12410 have any urine out foley recorded in the most recent completed ICU stay?",
+        "query": "select count(*)>0 from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 12410 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is not null order by icustays.intime desc limit 1 ) and outputevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'urine out foley' and d_items.linksto = 'outputevents' )",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      },
+      {
+        "turn": 2,
+        "T2": "2101-08-15 13:15:00",
+        "question": "Any new urine out foley output documented in the latest completed ICU stay?",
+        "query": "select count(*)>0 from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 12410 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is not null order by icustays.intime desc limit 1 ) and outputevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'urine out foley' and d_items.linksto = 'outputevents' ) and outputevents.charttime > '2101-08-15 13:00:00'",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} had any {output_name} output [time_filter_global1]?",
+    "value": {
+      "patient_id": 12410,
+      "output_name": "urine out foley"
+    }
+  },
+  {
+    "scenario_id": "voOPUAK0HJJ21ox0",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-02-07 20:00:00",
+        "question": "During this admission, did patient 10811 have any arterial bp mean readings in the ICU that were within the normal range?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 10811 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp mean' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between mean_bp_lower and mean_bp_upper",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-02-07 20:15:00",
+        "question": "Any new arterial bp mean values within the normal range?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 10811 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp mean' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between mean_bp_lower and mean_bp_upper and chartevents.charttime > '2104-02-07 20:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been normal [time_filter_global1]?",
+    "value": {
+      "patient_id": 10811,
+      "vital_name": "arterial bp mean"
+    }
+  },
+  {
+    "scenario_id": "heFu099hg38rYHHh",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-09-28 03:35:00",
+        "question": "During this hospital admission, has patient 30267 had any foley output documented in the ICU?",
+        "query": "select count(*)>0 from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 30267 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and outputevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'foley' and d_items.linksto = 'outputevents' )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-09-28 04:00:00",
+        "question": "Any new foley output documented in the ICU?",
+        "query": "select count(*)>0 from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 30267 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and outputevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'foley' and d_items.linksto = 'outputevents' ) and outputevents.charttime > '2105-09-28 03:35:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} had any {output_name} output [time_filter_global1]?",
+    "value": {
+      "patient_id": 30267,
+      "output_name": "foley"
+    }
+  },
+  {
+    "scenario_id": "C5G5sgHNYshH27lw",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-16 14:30:00",
+        "question": "For patient 739, what is the total recorded fluid output during this month?",
+        "query": "select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 739 ) ) and datetime(outputevents.charttime,'start of month') = datetime('2105-12-16 14:30:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            4556.0
+          ]
+        ],
+        "answer": "4556.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-16 15:00:00",
+        "question": "What is the change in total recorded fluid output?",
+        "query": "select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 739 ) ) and datetime(outputevents.charttime,'start of month') = datetime('2105-12-16 15:00:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            4596.0
+          ]
+        ],
+        "answer": "+40.0"
+      }
+    ],
+    "q_tag": "what was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 739
+    }
+  },
+  {
+    "scenario_id": "NBKJDqscNQraNGWr",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-07-10 18:00:00",
+        "question": "For patient 22245, what is the average recorded body weight for each day during this calendar year, based on weights documented during ICU stays?",
+        "query": "select avg(chartevents.valuenum) from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 22245 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'admit wt' and d_items.linksto = 'chartevents' ) and datetime(chartevents.charttime,'start of year') = datetime('2105-07-10 18:00:00','start of year','-0 year') group by strftime('%y-%m-%d',chartevents.charttime)",
+        "sql_result": [
+          [
+            75.0
+          ],
+          [
+            60.0
+          ]
+        ],
+        "answer": "75.0; 60.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-07-10 23:00:00",
+        "question": "By how much did the lowest daily average ICU body weight change?",
+        "query": "select avg(chartevents.valuenum) from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 22245 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'admit wt' and d_items.linksto = 'chartevents' ) and datetime(chartevents.charttime,'start of year') = datetime('2105-07-10 23:00:00','start of year','-0 year') group by strftime('%y-%m-%d',chartevents.charttime)",
+        "sql_result": [
+          [
+            75.0
+          ],
+          [
+            61.54999923706055
+          ]
+        ],
+        "answer": "+1.54999923706055"
+      }
+    ],
+    "q_tag": "list the [unit_average] [agg_function] weight of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "patient_id": 22245
+    }
+  },
+  {
+    "scenario_id": "st1jnAMOxRnMhwmG",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-10-31 13:00:00",
+        "question": "For patient 27703, what is the total fluid input given in the ICU this month?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 27703 ) ) and datetime(inputevents_cv.charttime,'start of month') = datetime('2105-10-31 13:00:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            908.0249999762
+          ]
+        ],
+        "answer": "908.0249999762"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-10-31 13:15:00",
+        "question": "By how much has the total ICU fluid input changed?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 27703 ) ) and datetime(inputevents_cv.charttime,'start of month') = datetime('2105-10-31 13:15:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            918.0249999762
+          ]
+        ],
+        "answer": "+10.0"
+      }
+    ],
+    "q_tag": "what was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 27703
+    }
+  },
+  {
+    "scenario_id": "r7XtySkamRK4PY6t",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-11-06 12:15:00",
+        "question": "Has patient 138 had any heart rate measurements in the normal range during this admission while in the ICU?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 138 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'heart rate' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between heart_rate_lower and heart_rate_upper",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-11-06 12:30:00",
+        "question": "Any new heart rate measurements within normal range?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 138 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'heart rate' and d_items.linksto = 'chartevents' ) and chartevents.charttime > '2104-11-06 12:15:00' and chartevents.valuenum between heart_rate_lower and heart_rate_upper",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been normal [time_filter_global1]?",
+    "value": {
+      "vital_name": "heart rate",
+      "patient_id": 138
+    }
+  },
+  {
+    "scenario_id": "6pto83GiVQsrVbkq",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-19 10:00:00",
+        "question": "How much total intake was recorded for patient 15794 in the ICU today?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 15794 ) ) and datetime(inputevents_cv.charttime,'start of day') = datetime('2105-12-19 10:00:00','start of day','-0 day')",
+        "sql_result": [
+          [
+            1377.1237496137
+          ]
+        ],
+        "answer": "1377.1237496137"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-19 10:15:00",
+        "question": "What is the change in total ICU intake?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 15794 ) ) and datetime(inputevents_cv.charttime,'start of day') = datetime('2105-12-19 10:15:00','start of day','-0 day')",
+        "sql_result": [
+          [
+            1429.3237496614
+          ]
+        ],
+        "answer": "+52.2000000477"
+      }
+    ],
+    "q_tag": "what was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 15794
+    }
+  },
+  {
+    "scenario_id": "hpHXtG0buQBYdp0S",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-28 22:00:00",
+        "question": "Did patient 19412 have any arterial bp mean values within the normal range today during an ICU stay?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 19412 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp mean' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between mean_bp_lower and mean_bp_upper and datetime(chartevents.charttime,'start of day') = datetime('2105-12-28 22:00:00','start of day','-0 day')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-28 22:15:00",
+        "question": "Any subsequent arterial bp mean readings in normal range?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 19412 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp mean' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between mean_bp_lower and mean_bp_upper and datetime(chartevents.charttime,'start of day') = datetime('2105-12-28 22:15:00','start of day','-0 day') and chartevents.charttime > '2105-12-28 22:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been normal [time_filter_global1]?",
+    "value": {
+      "vital_name": "arterial bp mean",
+      "patient_id": 19412
+    }
+  },
+  {
+    "scenario_id": "EIiaZkSgBqjspBdM",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-06-10 20:00:00",
+        "question": "During this admission, what is the total fluid output recorded for patient 14413 in the ICU so far?",
+        "query": "select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 14413 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            70.0
+          ]
+        ],
+        "answer": "70.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-06-10 21:00:00",
+        "question": "How much has total ICU fluid output changed?",
+        "query": "select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 14413 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            170.0
+          ]
+        ],
+        "answer": "+100.0"
+      }
+    ],
+    "q_tag": "what was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 14413
+    }
+  },
+  {
+    "scenario_id": "1hNK3Eb6ZwWqhyGg",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-04-10 20:00:00",
+        "question": "What is the total recorded output volume for patient 32163 during this calendar year?",
+        "query": "select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 32163 ) ) and datetime(outputevents.charttime,'start of year') = datetime('2105-04-10 20:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            4431.0
+          ]
+        ],
+        "answer": "4431.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-04-10 20:20:00",
+        "question": "How much has the total recorded output volume changed?",
+        "query": "select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 32163 ) ) and datetime(outputevents.charttime,'start of year') = datetime('2105-04-10 20:20:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            4468.0
+          ]
+        ],
+        "answer": "+37.0"
+      }
+    ],
+    "q_tag": "what was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 32163
+    }
+  },
+  {
+    "scenario_id": "GdViXXGg8PIzZTqh",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-11-02 14:00:00",
+        "question": "What was the most recent intake (IV fluid or medication) recorded for patient 19175 during an ICU stay this month?",
+        "query": "select d_items.label from d_items where d_items.itemid in ( select inputevents_cv.itemid from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 19175 ) ) and datetime(inputevents_cv.charttime,'start of month') = datetime('2105-11-02 14:00:00','start of month','-0 month') order by inputevents_cv.charttime DESC limit 1 )",
+        "sql_result": [
+          [
+            "promote w/fiber"
+          ]
+        ],
+        "answer": "promote w/fiber"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-11-02 14:15:00",
+        "question": "What is the new most recent IV fluid/medication intake this month?",
+        "query": "select d_items.label from d_items where d_items.itemid in ( select inputevents_cv.itemid from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 19175 ) ) and datetime(inputevents_cv.charttime,'start of month') = datetime('2105-11-02 14:15:00','start of month','-0 month') order by inputevents_cv.charttime DESC limit 1 )",
+        "sql_result": [
+          [
+            ".9% normal saline"
+          ]
+        ],
+        "answer": ".9% normal saline"
+      }
+    ],
+    "q_tag": "what was the name of the intake that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 19175
+    }
+  },
+  {
+    "scenario_id": "NwUBsx6n7XnRzmD3",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-30 13:45:00",
+        "question": "During the current ICU stay for patient 15447, is the second most recent arterial bp [diastolic] lower than the latest value?",
+        "query": "select ( select chartevents.valuenum from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 15447 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is null ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) order by chartevents.charttime DESC limit 1 offset 1 ) < ( select chartevents.valuenum from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 15447 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is null ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) order by chartevents.charttime DESC limit 1 )",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-30 14:00:00",
+        "question": "Has the latest arterial bp [diastolic] risen compared to the immediately prior reading?",
+        "query": "select ( select chartevents.valuenum from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 15447 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is null ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) order by chartevents.charttime DESC limit 1 offset 1 ) < ( select chartevents.valuenum from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 15447 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is null ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) order by chartevents.charttime DESC limit 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "is the {vital_name} of patient {patient_id} [time_filter_exact2] measured [time_filter_global2] [comparison] than the [time_filter_exact1] value measured [time_filter_global1]?",
+    "value": {
+      "vital_name": "arterial bp [diastolic]",
+      "patient_id": 15447
+    }
+  },
+  {
+    "scenario_id": "K9xyqOxUdIl3eC4N",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2103-05-18 12:30:00",
+        "question": "For patient 16571, has any arterial bp mean measurement in the past 1497 days been within the normal range?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 16571 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp mean' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between mean_bp_lower and mean_bp_upper and datetime(chartevents.charttime) >= datetime('2103-05-18 12:30:00','-1497 day')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2103-05-18 13:00:00",
+        "question": "Any new arterial bp mean readings within the normal range?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 16571 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp mean' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between mean_bp_lower and mean_bp_upper and datetime(chartevents.charttime) >= datetime('2103-05-18 13:00:00','-1497 day') and datetime(chartevents.charttime) > datetime('2103-05-18 12:30:00')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been normal [time_filter_global1]?",
+    "value": {
+      "patient_id": 16571,
+      "vital_name": "arterial bp mean"
+    }
+  },
+  {
+    "scenario_id": "sFtysEKSbjFSjlgF",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-05-31 12:09:00",
+        "question": "What is the total hospital cost for patient 462 this year?",
+        "query": "select sum(cost.cost) from cost where cost.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 462 ) and datetime(cost.chargetime,'start of year') = datetime('2105-05-31 12:09:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            31.17
+          ]
+        ],
+        "answer": "31.17"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-05-31 14:19:00",
+        "question": "What is the change in year-to-date hospital cost?",
+        "query": "select sum(cost.cost) from cost where cost.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 462 ) and datetime(cost.chargetime,'start of year') = datetime('2105-05-31 14:19:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            92.21000000000001
+          ]
+        ],
+        "answer": "+61.04"
+      }
+    ],
+    "q_tag": "what is_verb the total hospital cost of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 462
+    }
+  },
+  {
+    "scenario_id": "U6oTVtzA7H0ERsLp",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-09-21 08:00:00",
+        "question": "What is the monthly average sao2 for patient 30307 during this hospital admission?",
+        "query": "select avg(chartevents.valuenum) from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 30307 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'sao2' and d_items.linksto = 'chartevents' ) group by strftime('%y-%m',chartevents.charttime)",
+        "sql_result": [
+          [
+            82.0
+          ]
+        ],
+        "answer": "82.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-09-21 12:00:00",
+        "question": "By how much did the monthly average sao2 change?",
+        "query": "select avg(chartevents.valuenum) from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 30307 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'sao2' and d_items.linksto = 'chartevents' ) group by strftime('%y-%m',chartevents.charttime)",
+        "sql_result": [
+          [
+            87.0
+          ]
+        ],
+        "answer": "+5.0"
+      }
+    ],
+    "q_tag": "list the [unit_average] [agg_function] {vital_name} of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "vital_name": "sao2",
+      "patient_id": 30307
+    }
+  },
+  {
+    "scenario_id": "YpAfVIaqIiIvh1kT",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-28 01:30:00",
+        "question": "What was the latest microbiology specimen type collected from patient 15945 this year?",
+        "query": "select microbiologyevents.spec_type_desc from microbiologyevents where microbiologyevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 15945 ) and datetime(microbiologyevents.charttime,'start of year') = datetime('2105-12-28 01:30:00','start of year','-0 year') order by microbiologyevents.charttime desc limit 1",
+        "sql_result": [
+          [
+            "swab"
+          ]
+        ],
+        "answer": "swab"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-28 01:46:00",
+        "question": "Is the latest microbiology specimen type now sputum?",
+        "query": "select microbiologyevents.spec_type_desc from microbiologyevents where microbiologyevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 15945 ) and datetime(microbiologyevents.charttime,'start of year') = datetime('2105-12-28 01:46:00','start of year','-0 year') order by microbiologyevents.charttime desc limit 1",
+        "sql_result": [
+          [
+            "sputum"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the specimen that patient {patient_id} was [time_filter_exact1] tested [time_filter_global1]?",
+    "value": {
+      "patient_id": 15945
+    }
+  },
+  {
+    "scenario_id": "mRMkZqfeCUwd7LAN",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2102-12-31 16:15:00",
+        "question": "What is the total volume of inputs administered to patient 9151 during ICU care from 736 days ago up to now?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 9151 ) ) and datetime(inputevents_cv.charttime) >= datetime('2102-12-31 16:15:00','-736 day')",
+        "sql_result": [
+          [
+            13.4000000954
+          ]
+        ],
+        "answer": "13.4000000954"
+      },
+      {
+        "turn": 2,
+        "T2": "2102-12-31 16:30:00",
+        "question": "By how much did cumulative intake volume change?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 9151 ) ) and datetime(inputevents_cv.charttime) >= datetime('2102-12-31 16:30:00','-736 day')",
+        "sql_result": [
+          [
+            98.64000009
+          ]
+        ],
+        "answer": "+85.2399999946"
+      }
+    ],
+    "q_tag": "what was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 9151
+    }
+  },
+  {
+    "scenario_id": "0h3G6ogxZSlFomtk",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-30 00:00:00",
+        "question": "During this hospital admission, did patient 1902 ever have a normal arterial bp [diastolic] value in the ICU?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 1902 and admissions.dischtime is null order by admissions.admittime DESC limit 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between diastolic_bp_lower and diastolic_bp_upper",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-30 00:30:00",
+        "question": "Any new normal arterial bp [diastolic] readings in the ICU?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 1902 and admissions.dischtime is null order by admissions.admittime DESC limit 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between diastolic_bp_lower and diastolic_bp_upper and chartevents.charttime > '2105-12-30 00:00:00'",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been normal [time_filter_global1]?",
+    "value": {
+      "patient_id": 1902,
+      "vital_name": "arterial bp [diastolic]"
+    }
+  },
+  {
+    "scenario_id": "AlAAZVXSjd2XByRw",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-29 13:00:00",
+        "question": "For patient 2518, what is the net fluid balance (total intake minus total output) so far during this hospital admission?",
+        "query": "select ( select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 2518 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ) - ( select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 2518 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) )",
+        "sql_result": [
+          [
+            -761.4999998808
+          ]
+        ],
+        "answer": "-761.4999998808"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-29 13:15:00",
+        "question": "What is the change in net fluid balance?",
+        "query": "select ( select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 2518 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ) - ( select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 2518 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) )",
+        "sql_result": [
+          [
+            -794.0650013685
+          ]
+        ],
+        "answer": "-32.5650014877"
+      }
+    ],
+    "q_tag": "what is the difference between the total volume of intake and output of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 2518
+    }
+  },
+  {
+    "scenario_id": "ZTPxBjymZ8QNboTE",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2101-12-04 21:00:00",
+        "question": "For patient 366, what was the most recent IV intake recorded during any ICU stay within the last 828 days (what was the medication or fluid name)?",
+        "query": "select d_items.label from d_items where d_items.itemid in ( select inputevents_cv.itemid from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 366 ) ) and datetime(inputevents_cv.charttime) >= datetime('2101-12-04 21:00:00','-828 day') order by inputevents_cv.charttime DESC limit 1 )",
+        "sql_result": [
+          [
+            "d5w"
+          ]
+        ],
+        "answer": "d5w"
+      },
+      {
+        "turn": 2,
+        "T2": "2101-12-04 22:00:00",
+        "question": "Has the most recent IV fluid changed?",
+        "query": "select d_items.label from d_items where d_items.itemid in ( select inputevents_cv.itemid from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 366 ) ) and datetime(inputevents_cv.charttime) >= datetime('2101-12-04 22:00:00','-828 day') order by inputevents_cv.charttime DESC limit 1 )",
+        "sql_result": [
+          [
+            ".9% normal saline"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the intake that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 366
+    }
+  },
+  {
+    "scenario_id": "TkPTjMPwOA2eDBPb",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-12-30 04:40:00",
+        "question": "Which lab test was obtained most recently for patient 25312 during this hospital admission?",
+        "query": "select d_labitems.label from d_labitems where d_labitems.itemid in ( select labevents.itemid from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 25312 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) order by labevents.charttime desc limit 1 )",
+        "sql_result": [
+          [
+            "hematocrit"
+          ]
+        ],
+        "answer": "hematocrit"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-12-30 04:52:00",
+        "question": "Is the most recent lab test still hematocrit?",
+        "query": "select d_labitems.label from d_labitems where d_labitems.itemid in ( select labevents.itemid from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 25312 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) order by labevents.charttime desc limit 1 )",
+        "sql_result": [
+          [
+            "urea nitrogen"
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the name of the lab test that patient {patient_id} [time_filter_exact1] received [time_filter_global1]?",
+    "value": {
+      "patient_id": 25312
+    }
+  },
+  {
+    "scenario_id": "WnDWetAfQVeJzYCh",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-03-24 09:00:00",
+        "question": "During this admission for patient 4269, in the most recent ICU stay that has ended, did arterial bp [systolic] ever exceed 133?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 4269 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is not null order by icustays.intime DESC limit 1 ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [systolic]' and d_items.linksto = 'chartevents' ) and chartevents.valuenum > 133.0",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-03-24 09:30:00",
+        "question": "Any new arterial bp [systolic] readings above 133?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 4269 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and icustays.outtime is not null order by icustays.intime DESC limit 1 ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [systolic]' and d_items.linksto = 'chartevents' ) and chartevents.valuenum > 133.0 and chartevents.charttime > '2105-03-24 09:00:00'",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been ever [comparison] than {vital_value} [time_filter_global1]?",
+    "value": {
+      "patient_id": 4269,
+      "vital_name": "arterial bp [systolic]",
+      "vital_value": 133.0
+    }
+  },
+  {
+    "scenario_id": "3HwAAqcnrkKo1RuG",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-06-18 10:45:00",
+        "question": "Which output was most recently charted for patient 808 during this hospital admission?",
+        "query": "select d_items.label from d_items where d_items.itemid in ( select outputevents.itemid from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 808 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) order by outputevents.charttime DESC limit 1 )",
+        "sql_result": [
+          [
+            "urine ."
+          ]
+        ],
+        "answer": "urine ."
+      },
+      {
+        "turn": 2,
+        "T2": "2105-06-18 11:00:00",
+        "question": "Is the most recent output recorded as urine via Foley catheter?",
+        "query": "select d_items.label from d_items where d_items.itemid in ( select outputevents.itemid from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 808 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) order by outputevents.charttime DESC limit 1 )",
+        "sql_result": [
+          [
+            "urine out foley"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 808
+    }
+  },
+  {
+    "scenario_id": "hx6DTPOa30vm4s8b",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-05-20 18:00:00",
+        "question": "How much total output has been recorded for patient 25814 over the past 775 days across their ICU stays?",
+        "query": "select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 25814 ) ) and datetime(outputevents.charttime) >= datetime('2105-05-20 18:00:00','-775 day')",
+        "sql_result": [
+          [
+            11507.0
+          ]
+        ],
+        "answer": "11507.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-05-20 18:30:00",
+        "question": "By how much has the total recorded output changed?",
+        "query": "select sum(outputevents.value) from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 25814 ) ) and datetime(outputevents.charttime) >= datetime('2105-05-20 18:30:00','-775 day')",
+        "sql_result": [
+          [
+            11577.0
+          ]
+        ],
+        "answer": "+70.0"
+      }
+    ],
+    "q_tag": "what was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 25814
+    }
+  },
+  {
+    "scenario_id": "fcMvrgdb35mciMyP",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-31 22:13:00",
+        "question": "What was the latest microbiology specimen collected (e.g., blood, urine) for patient 97330 during this hospital admission?",
+        "query": "select microbiologyevents.spec_type_desc from microbiologyevents where microbiologyevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 97330 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) order by microbiologyevents.charttime desc limit 1",
+        "sql_result": [
+          [
+            "blood culture"
+          ]
+        ],
+        "answer": "blood culture"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-31 22:24:00",
+        "question": "Is the latest microbiology specimen still a blood culture?",
+        "query": "select microbiologyevents.spec_type_desc from microbiologyevents where microbiologyevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 97330 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) order by microbiologyevents.charttime desc limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the name of the specimen that patient {patient_id} was [time_filter_exact1] tested [time_filter_global1]?",
+    "value": {
+      "patient_id": 97330
+    }
+  },
+  {
+    "scenario_id": "7WdfCIcJ8WXEn1Ag",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2102-07-25 10:45:00",
+        "question": "During this hospital admission, has patient 26922 ever had an arterial bp mean above 78.0?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 26922 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp mean' and d_items.linksto = 'chartevents' ) and chartevents.valuenum > 78.0",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2102-07-25 11:00:00",
+        "question": "Has the arterial bp mean exceeded 78.0 again?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 26922 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp mean' and d_items.linksto = 'chartevents' ) and chartevents.valuenum > 78.0 and chartevents.charttime > '2102-07-25 10:45:00'",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been ever [comparison] than {vital_value} [time_filter_global1]?",
+    "value": {
+      "patient_id": 26922,
+      "vital_name": "arterial bp mean",
+      "vital_value": 78.0
+    }
+  },
+  {
+    "scenario_id": "On2ixHGqkAuUpaOH",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-17 17:00:00",
+        "question": "For patient 10855, what was the most recent output type recorded today during an ICU stay?",
+        "query": "select d_items.label from d_items where d_items.itemid in ( select outputevents.itemid from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 10855 ) ) and datetime(outputevents.charttime,'start of day') = datetime('2105-12-17 17:00:00','start of day','-0 day') order by outputevents.charttime DESC limit 1 )",
+        "sql_result": [
+          [
+            "urine out foley"
+          ]
+        ],
+        "answer": "urine out foley"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-17 17:30:00",
+        "question": "Is the latest recorded ICU output still urine out foley?",
+        "query": "select d_items.label from d_items where d_items.itemid in ( select outputevents.itemid from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 10855 ) ) and datetime(outputevents.charttime,'start of day') = datetime('2105-12-17 17:30:00','start of day','-0 day') order by outputevents.charttime DESC limit 1 )",
+        "sql_result": [
+          [
+            "l pleural #1"
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10855
+    }
+  },
+  {
+    "scenario_id": "PV8E7hgQa3BMkcUo",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-02 09:30:00",
+        "question": "Has patient 14467 had any arterial bp [diastolic] readings within the normal range today?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 14467 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between diastolic_bp_lower and diastolic_bp_upper and datetime(chartevents.charttime,'start of day') = datetime('2105-12-02 09:30:00','start of day','-0 day')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-02 09:45:00",
+        "question": "Any additional arterial bp [diastolic] readings in the normal range?",
+        "query": "select count(*)>0 from chartevents where chartevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 14467 ) ) and chartevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'arterial bp [diastolic]' and d_items.linksto = 'chartevents' ) and chartevents.valuenum between diastolic_bp_lower and diastolic_bp_upper and datetime(chartevents.charttime,'start of day') = datetime('2105-12-02 09:45:00','start of day','-0 day') and chartevents.charttime > '2105-12-02 09:30:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been normal [time_filter_global1]?",
+    "value": {
+      "patient_id": 14467,
+      "vital_name": "arterial bp [diastolic]"
+    }
+  },
+  {
+    "scenario_id": "HHipk1porRH7X5sI",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2103-01-01 00:12:00",
+        "question": "For patient 9151, what was the lowest phosphate each month over the past three years?",
+        "query": "select min(labevents.valuenum) from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 9151 ) and labevents.itemid in ( select d_labitems.itemid from d_labitems where d_labitems.label = 'phosphate' ) and datetime(labevents.charttime) >= datetime('2103-01-01 00:12:00','-3 year') group by strftime('%y-%m',labevents.charttime)",
+        "sql_result": [
+          [
+            2.9
+          ],
+          [
+            3.6
+          ]
+        ],
+        "answer": "2.9; 3.6"
+      },
+      {
+        "turn": 2,
+        "T2": "2103-01-01 02:01:00",
+        "question": "Change in the latest monthly minimum phosphate?",
+        "query": "select min(labevents.valuenum) from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 9151 ) and labevents.itemid in ( select d_labitems.itemid from d_labitems where d_labitems.label = 'phosphate' ) and datetime(labevents.charttime) >= datetime('2103-01-01 02:01:00','-3 year') group by strftime('%y-%m',labevents.charttime)",
+        "sql_result": [
+          [
+            2.9
+          ],
+          [
+            2.4
+          ]
+        ],
+        "answer": "-1.2"
+      }
+    ],
+    "q_tag": "list the [unit_average] [agg_function] {lab_name} lab value of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "patient_id": 9151,
+      "lab_name": "phosphate"
+    }
+  },
+  {
+    "scenario_id": "bXsUbV0GY34im6oH",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-07-11 15:00:00",
+        "question": "For patient 31506, what is the total fluid intake administered so far during this hospital admission?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 31506 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            58.0950000882
+          ]
+        ],
+        "answer": "58.0950000882"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-07-11 15:15:00",
+        "question": "How much has the total fluid intake increased?",
+        "query": "select sum(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 31506 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            98.0950000882
+          ]
+        ],
+        "answer": "+40.0"
+      }
+    ],
+    "q_tag": "what was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 31506
+    }
+  },
+  {
+    "scenario_id": "bEdKvqLDvcZbu0Mz",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-07-25 01:00:00",
+        "question": "Has patient 5520 had any urine out foley output documented during this hospital admission?",
+        "query": "select count(*)>0 from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 5520 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and outputevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'urine out foley' and d_items.linksto = 'outputevents' )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-07-25 02:00:00",
+        "question": "Any additional urine out foley output documented?",
+        "query": "select count(*)>0 from outputevents where outputevents.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 5520 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) and outputevents.itemid in ( select d_items.itemid from d_items where d_items.label = 'urine out foley' and d_items.linksto = 'outputevents' ) and outputevents.charttime > '2104-07-25 01:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} had any {output_name} output [time_filter_global1]?",
+    "value": {
+      "patient_id": 5520,
+      "output_name": "urine out foley"
+    }
+  },
+  {
+    "scenario_id": "gGHzmbxtDmhx4oVb",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-03-30 10:35:00",
+        "question": "For patient 69289, what is the average mcv during this hospital admission?",
+        "query": "select avg(labevents.valuenum) from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 69289 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and labevents.itemid in ( select d_labitems.itemid from d_labitems where d_labitems.label = 'mcv' )",
+        "sql_result": [
+          [
+            87.45454545454545
+          ]
+        ],
+        "answer": "87.45454545454545"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-03-30 11:16:00",
+        "question": "By how much has the average mcv changed?",
+        "query": "select avg(labevents.valuenum) from labevents where labevents.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 69289 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) and labevents.itemid in ( select d_labitems.itemid from d_labitems where d_labitems.label = 'mcv' )",
+        "sql_result": [
+          [
+            86.75
+          ]
+        ],
+        "answer": "-0.7045"
+      }
+    ],
+    "q_tag": "what was the [agg_function] {lab_name} value of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 69289,
+      "lab_name": "mcv"
+    }
+  },
+  {
+    "scenario_id": "dbrN0dDRPW3E3UoC",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2103-10-10 23:00:00",
+        "question": "Over the past 38 months, on each day, what was the largest single infusion amount of .9% normal saline given to patient 25493 during ICU stays?",
+        "query": "select max(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 25493 ) ) and inputevents_cv.itemid in ( select d_items.itemid from d_items where d_items.label = '.9% normal saline' and d_items.linksto = 'inputevents_cv' ) and datetime(inputevents_cv.charttime) >= datetime('2103-10-10 23:00:00','-38 month') group by strftime('%y-%m-%d',inputevents_cv.charttime)",
+        "sql_result": [
+          [
+            25.0
+          ]
+        ],
+        "answer": "25.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2103-10-11 00:00:00",
+        "question": "Has the maximum daily .9% normal saline infusion amount changed?",
+        "query": "select max(inputevents_cv.amount) from inputevents_cv where inputevents_cv.icustay_id in ( select icustays.icustay_id from icustays where icustays.hadm_id in ( select admissions.hadm_id from admissions where admissions.subject_id = 25493 ) ) and inputevents_cv.itemid in ( select d_items.itemid from d_items where d_items.label = '.9% normal saline' and d_items.linksto = 'inputevents_cv' ) and datetime(inputevents_cv.charttime) >= datetime('2103-10-11 00:00:00','-38 month') group by strftime('%y-%m-%d',inputevents_cv.charttime)",
+        "sql_result": [
+          [
+            25.0
+          ],
+          [
+            10.0
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "list the [unit_average] [agg_function] volume of {intake_name} intake that patient {patient_id} received [time_filter_global1].",
+    "value": {
+      "patient_id": 25493,
+      "intake_name": ".9% normal saline"
+    }
+  }
+]

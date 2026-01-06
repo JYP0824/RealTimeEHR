@@ -1,0 +1,1949 @@
+[
+  {
+    "scenario_id": "GcdotkE7UQut6BOG",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2102-01-15 23:00:00",
+        "question": "Which drugs has patient 006-71495 been prescribed two or more times in the past 46 months?",
+        "query": "select t1.drugname from ( select medication.drugname, count( medication.drugstarttime ) as c1 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-71495' ) ) and datetime(medication.drugstarttime) >= datetime('2102-01-15 23:00:00','-46 month') group by medication.drugname ) as t1 where t1.c1 >= 2",
+        "sql_result": [
+          [
+            "potassium chloride"
+          ]
+        ],
+        "answer": "potassium chloride"
+      },
+      {
+        "turn": 2,
+        "T2": "2102-01-15 23:17:00",
+        "question": "Is potassium chloride still the only drug prescribed at least twice?",
+        "query": "select t1.drugname from ( select medication.drugname, count( medication.drugstarttime ) as c1 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-71495' ) ) and datetime(medication.drugstarttime) >= datetime('2102-01-15 23:17:00','-46 month') group by medication.drugname ) as t1 where t1.c1 >= 2",
+        "sql_result": [
+          [
+            "potassium chloride"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the drug that patient {patient_id} were prescribed [n_times] [time_filter_global1]?",
+    "value": {
+      "patient_id": "006-71495"
+    }
+  },
+  {
+    "scenario_id": "j85c4OucE8HXzZ8C",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-30 20:06:00",
+        "question": "Which drugs is 015-91239 documented as allergic to during their current hospital encounter?",
+        "query": "select allergy.drugname from allergy where allergy.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '015-91239' and patient.hospitaldischargetime is null ) )",
+        "sql_result": [
+          [
+            "bacitracin"
+          ],
+          [
+            null
+          ],
+          [
+            null
+          ]
+        ],
+        "answer": "bacitracin"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-30 22:02:00",
+        "question": "Which new drug allergies are recorded for this encounter?",
+        "query": "select allergy.drugname from allergy where allergy.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '015-91239' and patient.hospitaldischargetime is null ) ) and allergy.allergytime > '2105-12-30 20:06:00'",
+        "sql_result": [
+          [
+            null
+          ],
+          [
+            "polymyxin b sulfate"
+          ],
+          [
+            null
+          ]
+        ],
+        "answer": "polymyxin b sulfate"
+      }
+    ],
+    "q_tag": "what was the name of the substance that patient {patient_id} was allergic to [time_filter_global1]?",
+    "value": {
+      "patient_id": "015-91239"
+    }
+  },
+  {
+    "scenario_id": "Crfip1aEIV0NgAEr",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2101-08-28 00:59:00",
+        "question": "What was the last recorded intake during the most recent ICU stay for patient 002-56583?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '002-56583' ) and patient.unitdischargetime is not null order by patient.unitadmittime DESC limit 1 ) and intakeoutput.cellpath like '%intake%' order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "volume (ml)-0.9 %  sodium chloride infusion"
+          ]
+        ],
+        "answer": "volume (ml)-0.9 %  sodium chloride infusion"
+      },
+      {
+        "turn": 2,
+        "T2": "2101-08-28 01:30:00",
+        "question": "Has the last recorded intake type changed?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '002-56583' ) and patient.unitdischargetime is not null order by patient.unitadmittime DESC limit 1 ) and intakeoutput.cellpath like '%intake%' order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "volume (ml)-0.9 %  sodium chloride infusion"
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the name of the intake that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "002-56583"
+    }
+  },
+  {
+    "scenario_id": "elqVKfDAOw2bpMay",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-29 03:00:00",
+        "question": "Which medications were newly started today (but not started yesterday) in patient 017-45919?",
+        "query": "select medication.drugname from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.uniquepid = '017-45919' ) and datetime(medication.drugstarttime,'start of day') = datetime('2105-12-29 03:00:00','start of day','-0 day') except select medication.drugname from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.uniquepid = '017-45919' ) and datetime(medication.drugstarttime,'start of day') = datetime('2105-12-29 03:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "1 ml  -  hydromorphone hcl 1 mg/ml ij soln"
+          ],
+          [
+            "2.5 ml plas : ipratropium bromide 0.02 % in soln"
+          ],
+          [
+            "3 ml  -  ipratropium-albuterol 0.5-2.5 (3) mg/3ml in soln"
+          ],
+          [
+            "atropine 0.1 mg/ml syringe : 10 ml syringe"
+          ],
+          [
+            "bisacodyl 10 mg rect supp"
+          ],
+          [
+            "enoxaparin 40 mg/0.4 ml syr"
+          ],
+          [
+            "furosemide (lasix) tab 40 mg"
+          ],
+          [
+            "glucose 40% gel"
+          ],
+          [
+            "lorazepam 2 mg/1 ml 1 ml inj"
+          ],
+          [
+            "nitroglycerin 0.4 mg sl subl"
+          ],
+          [
+            "phenergan"
+          ],
+          [
+            "senokot-s tab"
+          ],
+          [
+            "zocor"
+          ]
+        ],
+        "answer": "1 ml  -  hydromorphone hcl 1 mg/ml ij soln; 2.5 ml plas : ipratropium bromide 0.02 % in soln; 3 ml  -  ipratropium-albuterol 0.5-2.5 (3) mg/3ml in soln; atropine 0.1 mg/ml syringe : 10 ml syringe; bisacodyl 10 mg rect supp; enoxaparin 40 mg/0.4 ml syr; furosemide (lasix) tab 40 mg; glucose 40% gel; lorazepam 2 mg/1 ml 1 ml inj; nitroglycerin 0.4 mg sl subl; phenergan; senokot-s tab; zocor"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-29 03:15:00",
+        "question": "Which additional newly started medication is present?",
+        "query": "select medication.drugname from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.uniquepid = '017-45919' ) and datetime(medication.drugstarttime,'start of day') = datetime('2105-12-29 03:15:00','start of day','-0 day') except select medication.drugname from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.uniquepid = '017-45919' ) and datetime(medication.drugstarttime,'start of day') = datetime('2105-12-29 03:15:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "1 ml  -  hydromorphone hcl 1 mg/ml ij soln"
+          ],
+          [
+            "2.5 ml plas : ipratropium bromide 0.02 % in soln"
+          ],
+          [
+            "3 ml  -  ipratropium-albuterol 0.5-2.5 (3) mg/3ml in soln"
+          ],
+          [
+            "atropine 0.1 mg/ml syringe : 10 ml syringe"
+          ],
+          [
+            "bisacodyl 10 mg rect supp"
+          ],
+          [
+            "chlorhexidine gluconate 0.12 % mouthwash : 15 ml cup"
+          ],
+          [
+            "enoxaparin 40 mg/0.4 ml syr"
+          ],
+          [
+            "furosemide (lasix) tab 40 mg"
+          ],
+          [
+            "glucose 40% gel"
+          ],
+          [
+            "lorazepam 2 mg/1 ml 1 ml inj"
+          ],
+          [
+            "nitroglycerin 0.4 mg sl subl"
+          ],
+          [
+            "phenergan"
+          ],
+          [
+            "senokot-s tab"
+          ],
+          [
+            "zocor"
+          ]
+        ],
+        "answer": "chlorhexidine gluconate 0.12 % mouthwash : 15 ml cup"
+      }
+    ],
+    "q_tag": "what is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": "017-45919"
+    }
+  },
+  {
+    "scenario_id": "ue8SvjTf3QXkJQz6",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-31 20:13:00",
+        "question": "What is the difference in systemicmean between the most recent and the second-most-recent measurements during the current ICU stay for patient 017-88691?",
+        "query": "select ( select vitalperiodic.systemicmean from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '017-88691' ) and patient.unitdischargetime is null ) and vitalperiodic.systemicmean is not null order by vitalperiodic.observationtime desc limit 1 ) - ( select vitalperiodic.systemicmean from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '017-88691' ) and patient.unitdischargetime is null ) and vitalperiodic.systemicmean is not null order by vitalperiodic.observationtime desc limit 1 offset 1 )",
+        "sql_result": [
+          [
+            0.0
+          ]
+        ],
+        "answer": "0.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-31 20:28:00",
+        "question": "Did the latest systemicmean decrease compared with the immediately preceding measurement?",
+        "query": "select ( select vitalperiodic.systemicmean from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '017-88691' ) and patient.unitdischargetime is null ) and vitalperiodic.systemicmean is not null order by vitalperiodic.observationtime desc limit 1 ) - ( select vitalperiodic.systemicmean from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '017-88691' ) and patient.unitdischargetime is null ) and vitalperiodic.systemicmean is not null order by vitalperiodic.observationtime desc limit 1 offset 1 )",
+        "sql_result": [
+          [
+            -5.0
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what is the change in the {vital_name} of patient {patient_id} from the [time_filter_exact2] value measured [time_filter_global2] compared to the [time_filter_exact1] value measured [time_filter_global1]?",
+    "value": {
+      "patient_id": "017-88691",
+      "vital_name": "systemicmean"
+    }
+  },
+  {
+    "scenario_id": "bqWPnOV27z6o0WV6",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-26 01:00:00",
+        "question": "What intake entry was most recently recorded today for patient 027-154299?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '027-154299' ) ) and intakeoutput.cellpath like '%intake%' and datetime(intakeoutput.intakeoutputtime,'start of day') = datetime('2105-12-26 01:00:00','start of day','-0 day') order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "enteral formula volume/bolus amt (ml)"
+          ]
+        ],
+        "answer": "enteral formula volume/bolus amt (ml)"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-26 02:00:00",
+        "question": "Has the most recent intake type changed?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '027-154299' ) ) and intakeoutput.cellpath like '%intake%' and datetime(intakeoutput.intakeoutputtime,'start of day') = datetime('2105-12-26 02:00:00','start of day','-0 day') order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "d51/2ns ivf"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the intake that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "027-154299"
+    }
+  },
+  {
+    "scenario_id": "ZAbbQZRn5Twvb45j",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-29 23:31:00",
+        "question": "What's the minimum -lymphs value recorded during 006-10390's current hospital admission?",
+        "query": "select min(lab.labresult) from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-10390' and patient.hospitaldischargetime is null ) ) and lab.labname = '-lymphs'",
+        "sql_result": [
+          [
+            18.0
+          ]
+        ],
+        "answer": "18.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-30 09:30:00",
+        "question": "Change in the minimum -lymphs?",
+        "query": "select min(lab.labresult) from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-10390' and patient.hospitaldischargetime is null ) ) and lab.labname = '-lymphs'",
+        "sql_result": [
+          [
+            10.0
+          ]
+        ],
+        "answer": "-8.0"
+      }
+    ],
+    "q_tag": "what was the [agg_function] {lab_name} value of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": "006-10390",
+      "lab_name": "-lymphs"
+    }
+  },
+  {
+    "scenario_id": "QvE0ZoZHFiAKdqi6",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-11-21 05:00:00",
+        "question": "What was the label/name of the most recent output entry documented for patient 030-21071 during the current month?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '030-21071' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2105-11-21 05:00:00','start of month','-0 month') order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "urinary catheter output: indwelling/continuous ure"
+          ]
+        ],
+        "answer": "urinary catheter output: indwelling/continuous ure"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-11-21 06:00:00",
+        "question": "Has the most recent output entry label changed?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '030-21071' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2105-11-21 06:00:00','start of month','-0 month') order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "urinary catheter output: indwelling/continuous ure"
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "030-21071"
+    }
+  },
+  {
+    "scenario_id": "BEKlfEiTQnMlf90Q",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2102-09-26 00:42:00",
+        "question": "What was the most recent lab test performed during the same hospital stay for patient 006-43795?",
+        "query": "select lab.labname from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-43795' ) ) order by lab.labresulttime DESC limit 1",
+        "sql_result": [
+          [
+            "pt - inr"
+          ]
+        ],
+        "answer": "pt - inr"
+      },
+      {
+        "turn": 2,
+        "T2": "2102-09-26 00:58:00",
+        "question": "Has the most recent lab test changed?",
+        "query": "select lab.labname from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-43795' ) ) order by lab.labresulttime DESC limit 1",
+        "sql_result": [
+          [
+            "alkaline phos."
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the lab test that patient {patient_id} [time_filter_exact1] received [time_filter_global1]?",
+    "value": {
+      "patient_id": "006-43795"
+    }
+  },
+  {
+    "scenario_id": "LMuer4XqH68f64GD",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-28 16:47:00",
+        "question": "What was the most recent output recorded during the current ICU stay for patient 006-172277?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-172277' ) and patient.unitdischargetime is null ) and intakeoutput.cellpath like '%output%' order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "urine"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-28 17:00:00",
+        "question": "Did the latest output change to indwelling urinary catheter urine?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-172277' ) and patient.unitdischargetime is null ) and intakeoutput.cellpath like '%output%' order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "urinary catheter output: indwelling/continuous ure"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "006-172277"
+    }
+  },
+  {
+    "scenario_id": "QLTpk6bxXZD1ZHKE",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-11-07 22:16:00",
+        "question": "What was the most recent laboratory test performed on patient 021-141335 during the current month?",
+        "query": "select lab.labname from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '021-141335' ) ) and datetime(lab.labresulttime,'start of month') = datetime('2105-11-07 22:16:00','start of month','-0 month') order by lab.labresulttime desc limit 1",
+        "sql_result": [
+          [
+            "-lymphs"
+          ]
+        ],
+        "answer": "-lymphs"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-11-07 22:29:00",
+        "question": "Has the most recent laboratory test changed?",
+        "query": "select lab.labname from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '021-141335' ) ) and datetime(lab.labresulttime,'start of month') = datetime('2105-11-07 22:29:00','start of month','-0 month') order by lab.labresulttime desc limit 1",
+        "sql_result": [
+          [
+            "platelets x 1000"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the lab test that patient {patient_id} [time_filter_exact1] received [time_filter_global1]?",
+    "value": {
+      "patient_id": "021-141335"
+    }
+  },
+  {
+    "scenario_id": "6hF6UyEqHi4uWBvP",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-28 12:59:00",
+        "question": "What was the most recent procedure/treatment recorded for patient 007-849?",
+        "query": "select treatment.treatmentname from treatment where treatment.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '007-849' ) ) order by treatment.treatmenttime DESC limit 1",
+        "sql_result": [
+          [
+            "vte prophylaxis - conventional heparin therapy"
+          ]
+        ],
+        "answer": "vte prophylaxis - conventional heparin therapy"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-28 20:11:00",
+        "question": "What is the updated most recent procedure/treatment?",
+        "query": "select treatment.treatmentname from treatment where treatment.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '007-849' ) ) order by treatment.treatmenttime DESC limit 1",
+        "sql_result": [
+          [
+            "head ct scan"
+          ]
+        ],
+        "answer": "head ct scan"
+      }
+    ],
+    "q_tag": "what was the name of the procedure that patient {patient_id} [time_filter_exact1] received [time_filter_global1]?",
+    "value": {
+      "patient_id": "007-849"
+    }
+  },
+  {
+    "scenario_id": "kZKRORvWra0xmHBB",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-11-24 07:15:11",
+        "question": "What was the highest creatinine value recorded for patient 027-144847 during last month?",
+        "query": "select max(lab.labresult) from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '027-144847' ) ) and lab.labname = 'creatinine' and datetime(lab.labresulttime,'start of month') = datetime('2105-11-24 07:15:11','start of month','-0 month')",
+        "sql_result": [
+          [
+            2.58
+          ]
+        ],
+        "answer": "2.58"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-11-24 11:45:11",
+        "question": "Has peak creatinine increased?",
+        "query": "select max(lab.labresult) from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '027-144847' ) ) and lab.labname = 'creatinine' and datetime(lab.labresulttime,'start of month') = datetime('2105-11-24 11:45:11','start of month','-0 month')",
+        "sql_result": [
+          [
+            2.58
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the [agg_function] {lab_name} value of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "lab_name": "creatinine",
+      "patient_id": "027-144847"
+    }
+  },
+  {
+    "scenario_id": "tCPktaKhlD55U3Th",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-22 13:26:00",
+        "question": "On this hospital visit, is the most recent mpv for 032-21820 greater than the mpv measured at the start of the same admission?",
+        "query": "select ( select lab.labresult from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '032-21820' and patient.hospitaldischargetime is null ) ) and lab.labname = 'mpv' order by lab.labresulttime desc limit 1 ) > ( select lab.labresult from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '032-21820' and patient.hospitaldischargetime is null ) ) and lab.labname = 'mpv' order by lab.labresulttime ASC limit 1 )",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-22 18:24:00",
+        "question": "Is the latest mpv higher than the admission value?",
+        "query": "select ( select lab.labresult from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '032-21820' and patient.hospitaldischargetime is null ) ) and lab.labname = 'mpv' order by lab.labresulttime desc limit 1 ) > ( select lab.labresult from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '032-21820' and patient.hospitaldischargetime is null ) ) and lab.labname = 'mpv' order by lab.labresulttime ASC limit 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "is the value of {lab_name} of patient {patient_id} [time_filter_exact2] measured [time_filter_global2] [comparison] than the [time_filter_exact1] value measured [time_filter_global1]?",
+    "value": {
+      "patient_id": "032-21820",
+      "lab_name": "mpv"
+    }
+  },
+  {
+    "scenario_id": "njNvohHP3aIIqo1i",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-25 17:47:00",
+        "question": "Which procedures did patient 027-120575 receive at least twice during the current calendar year?",
+        "query": "select t1.treatmentname from ( select treatment.treatmentname, count( treatment.treatmenttime ) as c1 from treatment where treatment.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '027-120575' ) ) and datetime(treatment.treatmenttime,'start of year') = datetime('2105-12-25 17:47:00','start of year','-0 year') group by treatment.treatmentname ) as t1 where t1.c1 >= 2",
+        "sql_result": [
+          [
+            "bronchodilator - beta-agonist"
+          ],
+          [
+            "cultures - blood"
+          ],
+          [
+            "electrolyte administration - potassium"
+          ],
+          [
+            "mechanical ventilation"
+          ]
+        ],
+        "answer": "bronchodilator - beta-agonist; cultures - blood; electrolyte administration - potassium; mechanical ventilation"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-25 21:19:00",
+        "question": "Which additional procedures reached at least two occurrences this year?",
+        "query": "select t1.treatmentname from ( select treatment.treatmentname, count( treatment.treatmenttime ) as c1 from treatment where treatment.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '027-120575' ) ) and datetime(treatment.treatmenttime,'start of year') = datetime('2105-12-25 21:19:00','start of year','-0 year') group by treatment.treatmentname ) as t1 where t1.c1 >= 2",
+        "sql_result": [
+          [
+            "bronchodilator - beta-agonist"
+          ],
+          [
+            "chest x-ray"
+          ],
+          [
+            "cultures - blood"
+          ],
+          [
+            "electrolyte administration - potassium"
+          ],
+          [
+            "mechanical ventilation"
+          ]
+        ],
+        "answer": "chest x-ray"
+      }
+    ],
+    "q_tag": "what was the name of the procedure that patient {patient_id} received [n_times] [time_filter_global1]?",
+    "value": {
+      "patient_id": "027-120575"
+    }
+  },
+  {
+    "scenario_id": "LJGFqV9sHTrZrcoU",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-11-25 20:00:00",
+        "question": "What was 005-77687's most recent intake entry recorded during the current month?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '005-77687' ) ) and intakeoutput.cellpath like '%intake%' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2105-11-25 20:00:00','start of month','-0 month') order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "nutrition total"
+          ]
+        ],
+        "answer": "nutrition total"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-11-25 21:00:00",
+        "question": "What is the updated most recent intake entry?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '005-77687' ) ) and intakeoutput.cellpath like '%intake%' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2105-11-25 21:00:00','start of month','-0 month') order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "volume (ml)-dextrose 5 % and 0.9% nacl infusion"
+          ]
+        ],
+        "answer": "volume (ml)-dextrose 5 % and 0.9% nacl infusion"
+      }
+    ],
+    "q_tag": "what was the name of the intake that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "005-77687"
+    }
+  },
+  {
+    "scenario_id": "j8ki6WkRnYCoSR46",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-08-23 10:09:00",
+        "question": "What is the total recorded output volume for 017-30318 during this calendar year?",
+        "query": "select sum(intakeoutput.cellvaluenumeric) from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '017-30318' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime,'start of year') = datetime('2105-08-23 10:09:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            2225.0
+          ]
+        ],
+        "answer": "2225.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-08-23 10:32:00",
+        "question": "What is the change in total recorded output volume?",
+        "query": "select sum(intakeoutput.cellvaluenumeric) from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '017-30318' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime,'start of year') = datetime('2105-08-23 10:32:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            2425.0
+          ]
+        ],
+        "answer": "+200.0"
+      }
+    ],
+    "q_tag": "what was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": "017-30318"
+    }
+  },
+  {
+    "scenario_id": "iX7hRK1dHHF9zMyi",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-21 10:07:00",
+        "question": "Has 003-10080 had any recorded respiration < 15.0 at any time today?",
+        "query": "select count(*)>0 from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '003-10080' ) ) and vitalperiodic.respiration < 15.0 and vitalperiodic.respiration is not null and datetime(vitalperiodic.observationtime,'start of day') = datetime('2105-12-21 10:07:00','start of day','-0 day')",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-21 10:22:00",
+        "question": "Any new respiration below 15 today?",
+        "query": "select count(*)>0 from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '003-10080' ) ) and vitalperiodic.respiration < 15.0 and vitalperiodic.respiration is not null and datetime(vitalperiodic.observationtime,'start of day') = datetime('2105-12-21 10:22:00','start of day','-0 day') and vitalperiodic.observationtime > '2105-12-21 10:07:00'",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been ever [comparison] than {vital_value} [time_filter_global1]?",
+    "value": {
+      "patient_id": "003-10080",
+      "vital_name": "respiration",
+      "vital_value": 15.0
+    }
+  },
+  {
+    "scenario_id": "TGsnCVS4KvG4r7eZ",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-08-08 21:05:00",
+        "question": "What allergy was documented during the most recent hospital admission for patient 015-96048?",
+        "query": "select allergy.allergyname from allergy where allergy.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '015-96048' and patient.hospitaldischargetime is not null order by patient.hospitaladmittime desc limit 1 ) )",
+        "sql_result": [
+          [
+            "percocet"
+          ],
+          [
+            "aspirin"
+          ],
+          [
+            "codeine phosphate"
+          ],
+          [
+            "cerner"
+          ],
+          [
+            "biaxin"
+          ],
+          [
+            "cephalexin"
+          ],
+          [
+            "gabapentin"
+          ],
+          [
+            "ambien"
+          ],
+          [
+            "celecoxib"
+          ]
+        ],
+        "answer": "percocet; aspirin; codeine phosphate; cerner; biaxin; cephalexin; gabapentin; ambien; celecoxib"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-08-08 21:36:00",
+        "question": "Any new allergies documented for this admission?",
+        "query": "select allergy.allergyname from allergy where allergy.patientunitstayid in ( select p.patientunitstayid from patient p where p.patienthealthsystemstayid in ( select p2.patienthealthsystemstayid from patient p2 where p2.uniquepid = '015-96048' and p2.hospitaldischargetime is not null order by p2.hospitaladmittime desc limit 1 ) ) and allergy.allergytime > '2105-08-08 21:05:00'",
+        "sql_result": [],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the name of the allergy that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": "015-96048"
+    }
+  },
+  {
+    "scenario_id": "gSgO1JpVXchN032R",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-11-30 04:00:00",
+        "question": "What drug did patient 006-36108 most recently start during the current month?",
+        "query": "select medication.drugname from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-36108' ) ) and datetime(medication.drugstarttime,'start of month') = datetime('2105-11-30 04:00:00','start of month','-0 month') order by medication.drugstarttime DESC limit 1",
+        "sql_result": [
+          [
+            "calcium chloride"
+          ]
+        ],
+        "answer": "calcium chloride"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-11-30 04:25:00",
+        "question": "Has the most recently started medication this month changed?",
+        "query": "select medication.drugname from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-36108' ) ) and datetime(medication.drugstarttime,'start of month') = datetime('2105-11-30 04:25:00','start of month','-0 month') order by medication.drugstarttime DESC limit 1",
+        "sql_result": [
+          [
+            "protonix"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the drug that patient {patient_id} was [time_filter_exact1] prescribed [time_filter_global1]?",
+    "value": {
+      "patient_id": "006-36108"
+    }
+  },
+  {
+    "scenario_id": "nk2zznJeBgFvK7vl",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2101-12-14 18:00:00",
+        "question": "What was the most recent recorded output during this hospital stay for 005-4044?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '005-4044' ) ) and intakeoutput.cellpath like '%output%' order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "urine"
+      },
+      {
+        "turn": 2,
+        "T2": "2101-12-14 19:00:00",
+        "question": "Is the latest recorded output still urine?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '005-4044' ) ) and intakeoutput.cellpath like '%output%' order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "005-4044"
+    }
+  },
+  {
+    "scenario_id": "P3glFNXA7tjKKlB6",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-11-09 21:12:00",
+        "question": "Has patient 016-6009 had any medication started during the current month?",
+        "query": "select count(*)>0 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '016-6009' ) ) and datetime(medication.drugstarttime,'start of month') = datetime('2105-11-09 21:12:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-11-09 21:30:00",
+        "question": "Any further medication starts this month?",
+        "query": "select count(*)>0 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '016-6009' ) ) and datetime(medication.drugstarttime,'start of month') = datetime('2105-11-09 21:30:00','start of month') and medication.drugstarttime > '2105-11-09 21:12:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": "016-6009"
+    }
+  },
+  {
+    "scenario_id": "mraB2QJBvsU7mFC5",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-09-30 15:15:00",
+        "question": "What was the most recent culture specimen site documented for patient 031-16123?",
+        "query": "select microlab.culturesite from microlab where microlab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '031-16123' ) ) order by microlab.culturetakentime desc limit 1",
+        "sql_result": [
+          [
+            "urine, voided specimen"
+          ]
+        ],
+        "answer": "urine, voided specimen"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-09-30 19:00:00",
+        "question": "Has the most recent culture specimen site changed?",
+        "query": "select microlab.culturesite from microlab where microlab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '031-16123' ) ) order by microlab.culturetakentime desc limit 1",
+        "sql_result": [
+          [
+            "blood, venipuncture"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the specimen that patient {patient_id} was [time_filter_exact1] tested [time_filter_global1]?",
+    "value": {
+      "patient_id": "031-16123"
+    }
+  },
+  {
+    "scenario_id": "448JrP3dcOZmxQEu",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2101-01-05 20:08:00",
+        "question": "On patient 010-11305's most recent ICU stay, is the last recorded systemicmean lower than the first recorded systemicmean?",
+        "query": "select ( select vitalperiodic.systemicmean from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '010-11305' ) and patient.unitdischargetime is not null order by patient.unitadmittime desc limit 1 ) and vitalperiodic.systemicmean is not null order by vitalperiodic.observationtime desc limit 1 ) < ( select vitalperiodic.systemicmean from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '010-11305' ) and patient.unitdischargetime is not null order by patient.unitadmittime desc limit 1 ) and vitalperiodic.systemicmean is not null order by vitalperiodic.observationtime ASC limit 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2101-01-05 20:23:00",
+        "question": "Is the last systemicmean still lower than the first?",
+        "query": "select ( select vitalperiodic.systemicmean from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '010-11305' ) and patient.unitdischargetime is not null order by patient.unitadmittime desc limit 1 ) and vitalperiodic.systemicmean is not null order by vitalperiodic.observationtime desc limit 1 ) < ( select vitalperiodic.systemicmean from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '010-11305' ) and patient.unitdischargetime is not null order by patient.unitadmittime desc limit 1 ) and vitalperiodic.systemicmean is not null order by vitalperiodic.observationtime ASC limit 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "is the {vital_name} of patient {patient_id} [time_filter_exact2] measured [time_filter_global2] [comparison] than the [time_filter_exact1] value measured [time_filter_global1]?",
+    "value": {
+      "patient_id": "010-11305",
+      "vital_name": "systemicmean"
+    }
+  },
+  {
+    "scenario_id": "jSOmbHQGWBBFjzw4",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-12-24 18:49:11",
+        "question": "Has patient 021-49082 been prescribed any medications during their most recent hospital admission?",
+        "query": "select count(*)>0 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '021-49082' and patient.hospitaldischargetime is not null order by patient.hospitaladmittime desc limit 1 ) )",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-12-24 19:00:11",
+        "question": "Have any new medications been ordered during this admission?",
+        "query": "select count(*)>0 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '021-49082' and patient.hospitaldischargetime is not null order by patient.hospitaladmittime desc limit 1 ) ) and medication.drugstarttime > '2104-12-24 18:49:11'",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": "021-49082"
+    }
+  },
+  {
+    "scenario_id": "sraTZxExNiHpO4ra",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-05-07 01:27:00",
+        "question": "Has any medication been started for patient 030-10407 during the current calendar year?",
+        "query": "select count(*)>0 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '030-10407' ) ) and datetime(medication.drugstarttime,'start of year') = datetime('2104-05-07 01:27:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-05-07 01:40:00",
+        "question": "Any additional medications initiated this year?",
+        "query": "select count(*)>0 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '030-10407' ) ) and datetime(medication.drugstarttime,'start of year') = datetime('2104-05-07 01:40:00','start of year','-0 year') and medication.drugstarttime > '2104-05-07 01:27:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": "030-10407"
+    }
+  },
+  {
+    "scenario_id": "S6qISuyCNB6aXhUK",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-11-13 19:00:19",
+        "question": "What was patient 002-20631's last recorded intake during their most recent ICU stay?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '002-20631' ) and patient.unitdischargetime is not null order by patient.unitadmittime desc limit 1 ) and intakeoutput.cellpath like '%intake%' order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "i.v."
+          ]
+        ],
+        "answer": "i.v."
+      },
+      {
+        "turn": 2,
+        "T2": "2105-11-13 19:20:19",
+        "question": "Is the most recent intake still i.v.?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '002-20631' ) and patient.unitdischargetime is not null order by patient.unitadmittime desc limit 1 ) and intakeoutput.cellpath like '%intake%' order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "i.v."
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the intake that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "002-20631"
+    }
+  },
+  {
+    "scenario_id": "wgjn6l8dF1KZL8sY",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-29 21:17:00",
+        "question": "What age is recorded for the patient with ID 017-16041 during their current hospital admission?",
+        "query": "select patient.age from patient where patient.uniquepid = '017-16041' and patient.hospitaldischargetime is null",
+        "sql_result": [
+          [
+            "88"
+          ]
+        ],
+        "answer": "88"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-29 22:09:00",
+        "question": "Has the patient's recorded age changed during this admission?",
+        "query": "select patient.age from patient where patient.uniquepid = '017-16041' and patient.hospitaldischargetime is null",
+        "sql_result": [
+          [
+            "88"
+          ],
+          [
+            "88"
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what is_verb the age of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": "017-16041"
+    }
+  },
+  {
+    "scenario_id": "1MuHyjKXUV7g8YFv",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-10-11 10:48:00",
+        "question": "During this hospital admission, what was the most recent 'output' label recorded this month for patient 006-99708?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-99708' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2104-10-11 10:48:00','start of month','-0 month') order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "urinary catheter output: indwelling/continuous ure"
+          ]
+        ],
+        "answer": "urinary catheter output: indwelling/continuous ure"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-10-11 11:00:00",
+        "question": "Has the most recent urinary output label changed?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-99708' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2104-10-11 11:00:00','start of month','-0 month') order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "006-99708"
+    }
+  },
+  {
+    "scenario_id": "UWAJ558hVS1evjHI",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-01-11 00:00:00",
+        "question": "What is the total recorded output for patient 022-109861 across their hospital stay(s) since 2129 days ago?",
+        "query": "select sum(intakeoutput.cellvaluenumeric) from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '022-109861' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime) >= datetime('2100-01-11 00:00:00','-2129 day')",
+        "sql_result": [
+          [
+            460.0
+          ]
+        ],
+        "answer": "460.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-01-11 00:20:00",
+        "question": "How much has total recorded output changed?",
+        "query": "select sum(intakeoutput.cellvaluenumeric) from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '022-109861' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime) >= datetime('2100-01-11 00:20:00','-2129 day')",
+        "sql_result": [
+          [
+            460.0
+          ]
+        ],
+        "answer": "+0.0"
+      }
+    ],
+    "q_tag": "what was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": "022-109861"
+    }
+  },
+  {
+    "scenario_id": "7fXOmEvEOIFc0tfg",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-10-14 05:09:00",
+        "question": "What was the most recent lab test for patient 033-7332 during the current calendar year?",
+        "query": "select lab.labname from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '033-7332' ) ) and datetime(lab.labresulttime,'start of year') = datetime('2104-10-14 05:09:00','start of year','-0 year') order by lab.labresulttime DESC limit 1",
+        "sql_result": [
+          [
+            "bedside glucose"
+          ]
+        ],
+        "answer": "bedside glucose"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-10-14 10:43:00",
+        "question": "What is the most recent lab test this year now?",
+        "query": "select lab.labname from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '033-7332' ) ) and datetime(lab.labresulttime,'start of year') = datetime('2104-10-14 10:43:00','start of year','-0 year') order by lab.labresulttime DESC limit 1",
+        "sql_result": [
+          [
+            "pao2"
+          ]
+        ],
+        "answer": "pao2"
+      }
+    ],
+    "q_tag": "what was the name of the lab test that patient {patient_id} [time_filter_exact1] received [time_filter_global1]?",
+    "value": {
+      "patient_id": "033-7332"
+    }
+  },
+  {
+    "scenario_id": "tW7vIJPlCYT0cTQO",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-28 18:32:00",
+        "question": "Which medications were started today but were not started yesterday for 015-52724?",
+        "query": "select medication.drugname from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.uniquepid = '015-52724' ) and datetime(medication.drugstarttime,'start of day') = datetime('2105-12-28 18:32:00','start of day','-0 day') except select medication.drugname from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.uniquepid = '015-52724' ) and datetime(medication.drugstarttime,'start of day') = datetime('2105-12-28 18:32:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "amiodarone (cordarone) 150 mg in d5w 100ml bolus"
+          ],
+          [
+            "ceftriaxone in d5w (rocephin) ivpb 1 g"
+          ],
+          [
+            "coumadin"
+          ],
+          [
+            "insulin (regular) 100 units in 1"
+          ],
+          [
+            "morphine"
+          ],
+          [
+            "promethazine hcl 25 mg/ml ij soln"
+          ],
+          [
+            "sodium phosphate 30 mmol/250ml ns"
+          ],
+          [
+            "vancomycin hcl in dextrose 1 gm/200ml iv soln"
+          ]
+        ],
+        "answer": "amiodarone (cordarone) 150 mg in d5w 100ml bolus; ceftriaxone in d5w (rocephin) ivpb 1 g; coumadin; insulin (regular) 100 units in 1; morphine; promethazine hcl 25 mg/ml ij soln; sodium phosphate 30 mmol/250ml ns; vancomycin hcl in dextrose 1 gm/200ml iv soln"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-28 18:45:00",
+        "question": "Which additional medications have been started?",
+        "query": "select distinct m.drugname from medication m where m.patientunitstayid in (select p.patientunitstayid from patient p where p.uniquepid = '015-52724') and m.drugstarttime > '2105-12-28 18:32:00'",
+        "sql_result": [
+          [
+            "lorazepam 0.5 mg tab"
+          ]
+        ],
+        "answer": "lorazepam 0.5 mg tab"
+      }
+    ],
+    "q_tag": "what is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": "015-52724"
+    }
+  },
+  {
+    "scenario_id": "OcrhYZ1DGs5pu4Xk",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-31 17:00:50",
+        "question": "What is the total output recorded for patient 013-38992 during the current calendar month?",
+        "query": "select sum(intakeoutput.cellvaluenumeric) from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '013-38992' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2105-12-31 17:00:50','start of month','-0 month')",
+        "sql_result": [
+          [
+            633
+          ]
+        ],
+        "answer": "633"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-31 20:00:50",
+        "question": "What is the change in total output?",
+        "query": "select sum(intakeoutput.cellvaluenumeric) from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '013-38992' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2105-12-31 20:00:50','start of month','-0 month')",
+        "sql_result": [
+          [
+            633
+          ]
+        ],
+        "answer": "+0"
+      }
+    ],
+    "q_tag": "what was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": "013-38992"
+    }
+  },
+  {
+    "scenario_id": "ug8vUjxRtJqQXFGf",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-29 04:37:00",
+        "question": "What is the maximum bedside glucose recorded during the current hospital admission for 022-6959?",
+        "query": "select max(lab.labresult) from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '022-6959' and patient.hospitaldischargetime is null ) ) and lab.labname = 'bedside glucose'",
+        "sql_result": [
+          [
+            328.0
+          ]
+        ],
+        "answer": "328.0"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-29 06:25:00",
+        "question": "How much has the maximum bedside glucose changed?",
+        "query": "select max(lab.labresult) from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '022-6959' and patient.hospitaldischargetime is null ) ) and lab.labname = 'bedside glucose'",
+        "sql_result": [
+          [
+            358.0
+          ]
+        ],
+        "answer": "+30.0"
+      }
+    ],
+    "q_tag": "what was the [agg_function] {lab_name} value of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": "022-6959",
+      "lab_name": "bedside glucose"
+    }
+  },
+  {
+    "scenario_id": "nm9XL3ReZrBeNkxZ",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-31 17:00:50",
+        "question": "What was the most recent 'output' entry recorded during patient 013-38992's current ICU stay?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '013-38992' ) and patient.unitdischargetime is null ) and intakeoutput.cellpath like '%output%' order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "urine"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-31 20:00:50",
+        "question": "Is the latest recorded output still urine?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '013-38992' ) and patient.unitdischargetime is null ) and intakeoutput.cellpath like '%output%' order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "013-38992"
+    }
+  },
+  {
+    "scenario_id": "E5F66q18gqjOxWof",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-31 01:45:29",
+        "question": "Which medications were started today for patient 032-24135 that were not started yesterday?",
+        "query": "select medication.drugname from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.uniquepid = '032-24135' ) and datetime(medication.drugstarttime,'start of day') = datetime('2105-12-31 01:45:29','start of day','-0 day') except select medication.drugname from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.uniquepid = '032-24135' ) and datetime(medication.drugstarttime,'start of day') = datetime('2105-12-31 01:45:29','start of day','-1 day')",
+        "sql_result": [
+          [
+            "37.5 g tube : dextrose (diabetic use) 40 % po gel"
+          ],
+          [
+            "amiodarone (cordarone) 150 mg in d5w 100ml bolus"
+          ],
+          [
+            "amiodarone bolus"
+          ],
+          [
+            "ativan"
+          ],
+          [
+            "enoxaparin"
+          ],
+          [
+            "epinephrine"
+          ],
+          [
+            "morphine sulfate"
+          ],
+          [
+            "potassium chloride"
+          ]
+        ],
+        "answer": "37.5 g tube : dextrose (diabetic use) 40 % po gel; amiodarone (cordarone) 150 mg in d5w 100ml bolus; amiodarone bolus; ativan; enoxaparin; epinephrine; morphine sulfate; potassium chloride"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-31 02:00:29",
+        "question": "Which additional medications were initiated?",
+        "query": "select distinct m.drugname from medication m where m.patientunitstayid in (select p.patientunitstayid from patient p where p.uniquepid = '032-24135') and m.drugstarttime > '2105-12-31 01:45:29'",
+        "sql_result": [
+          [
+            "famotidine"
+          ]
+        ],
+        "answer": "famotidine"
+      }
+    ],
+    "q_tag": "what is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": "032-24135"
+    }
+  },
+  {
+    "scenario_id": "TpvM6aAIZRJEcOVf",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-07-07 12:45:00",
+        "question": "What was the most recent output label recorded for patient 017-41154 during this calendar year?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '017-41154' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime,'start of year') = datetime('2104-07-07 12:45:00','start of year','-0 year') order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "urine"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-07-07 13:00:00",
+        "question": "Is the latest recorded output still urine?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '017-41154' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime,'start of year') = datetime('2104-07-07 13:00:00','start of year','-0 year') order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "what was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "017-41154"
+    }
+  },
+  {
+    "scenario_id": "3NYkGss4iE8ujJTI",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-03-13 08:00:00",
+        "question": "What was the name/label of the most recent intake recorded this month during patient 030-75705's current hospital admission?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '030-75705' ) ) and intakeoutput.cellpath like '%intake%' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2105-03-13 08:00:00','start of month','-0 month') order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "d5ns"
+          ]
+        ],
+        "answer": "d5ns"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-03-13 09:00:00",
+        "question": "What is the updated most recent intake label?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '030-75705' ) ) and intakeoutput.cellpath like '%intake%' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2105-03-13 09:00:00','start of month','-0 month') order by intakeoutput.intakeoutputtime desc limit 1",
+        "sql_result": [
+          [
+            "volume expanders"
+          ]
+        ],
+        "answer": "volume expanders"
+      }
+    ],
+    "q_tag": "what was the name of the intake that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "030-75705"
+    }
+  },
+  {
+    "scenario_id": "fYHvB6Lv4kjyJFDr",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-09-27 07:00:00",
+        "question": "How much total output has patient 013-3028 had since 1631 days ago?",
+        "query": "select sum(intakeoutput.cellvaluenumeric) from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '013-3028' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime) >= datetime('2104-09-27 07:00:00','-1631 day')",
+        "sql_result": [
+          [
+            300
+          ]
+        ],
+        "answer": "300"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-09-27 08:00:00",
+        "question": "What is the change in total output?",
+        "query": "select sum(intakeoutput.cellvaluenumeric) from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '013-3028' ) ) and intakeoutput.cellpath like '%output%' and datetime(intakeoutput.intakeoutputtime) >= datetime('2104-09-27 08:00:00','-1631 day')",
+        "sql_result": [
+          [
+            450
+          ]
+        ],
+        "answer": "+150"
+      }
+    ],
+    "q_tag": "what was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": "013-3028"
+    }
+  },
+  {
+    "scenario_id": "MTlcMLSSa7M1rZsI",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-07-17 20:16:00",
+        "question": "Which medication(s) was patient 030-30152 prescribed two or more times during the past 143 months?",
+        "query": "select t1.drugname from ( select medication.drugname, count( medication.drugstarttime ) as c1 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '030-30152' ) ) and datetime(medication.drugstarttime) >= datetime('2105-07-17 20:16:00','-143 month') group by medication.drugname ) as t1 where t1.c1 >= 2",
+        "sql_result": [
+          [
+            "1 ml crtrdg-ndl : lorazepam 2 mg/ml ij soln"
+          ],
+          [
+            "1000 ml  -  sodium chloride 0.9 % iv soln"
+          ],
+          [
+            "1000 ml flex cont : sodium chloride 0.9 % iv soln"
+          ],
+          [
+            "fentanyl citrate (pf) 50 mcg/ml inj soln"
+          ],
+          [
+            "midazolam"
+          ],
+          [
+            "potassium chloride"
+          ],
+          [
+            "sodium chloride 0.9 % iv solp"
+          ],
+          [
+            "tylenol"
+          ]
+        ],
+        "answer": "1 ml crtrdg-ndl : lorazepam 2 mg/ml ij soln; 1000 ml  -  sodium chloride 0.9 % iv soln; 1000 ml flex cont : sodium chloride 0.9 % iv soln; fentanyl citrate (pf) 50 mcg/ml inj soln; midazolam; potassium chloride; sodium chloride 0.9 % iv solp; tylenol"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-07-17 20:32:00",
+        "question": "Which additional medications meet the twice-prescribed criterion?",
+        "query": "select t1.drugname from ( select medication.drugname, count( medication.drugstarttime ) as c1 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '030-30152' ) ) and datetime(medication.drugstarttime) >= datetime('2105-07-17 20:32:00','-143 month') group by medication.drugname ) as t1 where t1.c1 >= 2",
+        "sql_result": [
+          [
+            "1 ml crtrdg-ndl : lorazepam 2 mg/ml ij soln"
+          ],
+          [
+            "1000 ml  -  sodium chloride 0.9 % iv soln"
+          ],
+          [
+            "1000 ml flex cont : sodium chloride 0.9 % iv soln"
+          ],
+          [
+            "fentanyl citrate (pf) 50 mcg/ml inj soln"
+          ],
+          [
+            "midazolam"
+          ],
+          [
+            "morphine 2 mg/1 ml 1 ml syr"
+          ],
+          [
+            "potassium chloride"
+          ],
+          [
+            "sodium chloride 0.9 % iv solp"
+          ],
+          [
+            "tylenol"
+          ]
+        ],
+        "answer": "morphine 2 mg/1 ml 1 ml syr"
+      }
+    ],
+    "q_tag": "what was the name of the drug that patient {patient_id} were prescribed [n_times] [time_filter_global1]?",
+    "value": {
+      "patient_id": "030-30152"
+    }
+  },
+  {
+    "scenario_id": "C66NPdfZMROiS9G0",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-30 11:45:00",
+        "question": "What was the most recent treatment or procedure patient 015-58787 received during this hospital admission?",
+        "query": "select treatment.treatmentname from treatment where treatment.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '015-58787' and patient.hospitaldischargetime is null ) ) order by treatment.treatmenttime desc limit 1",
+        "sql_result": [
+          [
+            "antiarrhythmics - class iv antiarrhythmic"
+          ]
+        ],
+        "answer": "antiarrhythmics - class iv antiarrhythmic"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-30 16:07:00",
+        "question": "Is the most recent intervention still a class IV antiarrhythmic?",
+        "query": "select treatment.treatmentname from treatment where treatment.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '015-58787' and patient.hospitaldischargetime is null ) ) order by treatment.treatmenttime desc limit 1",
+        "sql_result": [
+          [
+            "chest x-ray"
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the name of the procedure that patient {patient_id} [time_filter_exact1] received [time_filter_global1]?",
+    "value": {
+      "patient_id": "015-58787"
+    }
+  },
+  {
+    "scenario_id": "Qgah9skRy0P59pGn",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-02-23 07:26:39",
+        "question": "Has patient 027-165214 had any laboratory tests in the past 172 months?",
+        "query": "select count(*)>0 from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '027-165214' ) ) and datetime(lab.labresulttime) >= datetime('2105-02-23 07:26:39','-172 month')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-02-23 07:37:39",
+        "question": "Any new laboratory tests recorded?",
+        "query": "select count(*)>0 from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '027-165214' ) ) and datetime(lab.labresulttime) > datetime('2105-02-23 07:26:39') and datetime(lab.labresulttime) >= datetime('2105-02-23 07:37:39','-172 month')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} received any lab test [time_filter_global1]?",
+    "value": {
+      "patient_id": "027-165214"
+    }
+  },
+  {
+    "scenario_id": "n5gWhINYtN6KWkDe",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-31 05:00:00",
+        "question": "What was the most recent intake entry documented today for patient 016-22566?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '016-22566' ) ) and intakeoutput.cellpath like '%intake%' and datetime(intakeoutput.intakeoutputtime,'start of day') = datetime('2105-12-31 05:00:00','start of day','-0 day') order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "volume (ml) vasopressin"
+          ]
+        ],
+        "answer": "volume (ml) vasopressin"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-31 05:19:00",
+        "question": "What is the new most recent intake entry?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '016-22566' ) ) and intakeoutput.cellpath like '%intake%' and datetime(intakeoutput.intakeoutputtime,'start of day') = datetime('2105-12-31 05:19:00','start of day','-0 day') order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "ns"
+          ]
+        ],
+        "answer": "ns"
+      }
+    ],
+    "q_tag": "what was the name of the intake that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "016-22566"
+    }
+  },
+  {
+    "scenario_id": "iOsN38FEdu7KAEGf",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2102-02-04 18:00:00",
+        "question": "What was the most recent output type recorded for patient 029-16737 during their hospital admission?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '029-16737' ) ) and intakeoutput.cellpath like '%output%' order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "urine"
+      },
+      {
+        "turn": 2,
+        "T2": "2102-02-04 20:14:00",
+        "question": "Has the most recent recorded output type changed?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '029-16737' ) ) and intakeoutput.cellpath like '%output%' order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "029-16737"
+    }
+  },
+  {
+    "scenario_id": "R3R0Xhz6VZ1OU47x",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2102-05-19 04:45:33",
+        "question": "What were the total hospital charges for patient 002-17412 over the past five years?",
+        "query": "select sum(cost.cost) from cost where cost.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '002-17412' ) and datetime(cost.chargetime) >= datetime('2102-05-19 04:45:33','-5 year')",
+        "sql_result": [
+          [
+            73.4
+          ]
+        ],
+        "answer": "73.4"
+      },
+      {
+        "turn": 2,
+        "T2": "2102-05-19 04:58:33",
+        "question": "What is the change in total hospital charges?",
+        "query": "select sum(cost.cost) from cost where cost.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '002-17412' ) and datetime(cost.chargetime) >= datetime('2102-05-19 04:58:33','-5 year')",
+        "sql_result": [
+          [
+            114.03
+          ]
+        ],
+        "answer": "+40.63"
+      }
+    ],
+    "q_tag": "what is_verb the total hospital cost of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": "002-17412"
+    }
+  },
+  {
+    "scenario_id": "1WDvHqsT0DZgotAs",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-28 01:42:00",
+        "question": "During the current ICU stay, is the second sao2 measurement lower than the first sao2 measurement for patient 006-2586?",
+        "query": "select ( select vitalperiodic.sao2 from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-2586' ) and patient.unitdischargetime is null ) and vitalperiodic.sao2 is not null order by vitalperiodic.observationtime DESC limit 1 offset 1 ) < ( select vitalperiodic.sao2 from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-2586' ) and patient.unitdischargetime is null ) and vitalperiodic.sao2 is not null order by vitalperiodic.observationtime DESC limit 1 )",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-28 01:57:00",
+        "question": "Is the latest sao2 higher than the previous reading?",
+        "query": "select ( select vitalperiodic.sao2 from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-2586' ) and patient.unitdischargetime is null ) and vitalperiodic.sao2 is not null order by vitalperiodic.observationtime DESC limit 1 offset 1 ) < ( select vitalperiodic.sao2 from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-2586' ) and patient.unitdischargetime is null ) and vitalperiodic.sao2 is not null order by vitalperiodic.observationtime DESC limit 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "is the {vital_name} of patient {patient_id} [time_filter_exact2] measured [time_filter_global2] [comparison] than the [time_filter_exact1] value measured [time_filter_global1]?",
+    "value": {
+      "patient_id": "006-2586",
+      "vital_name": "sao2"
+    }
+  },
+  {
+    "scenario_id": "ZQNyY2AjoKp3BxRA",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-11-29 19:00:00",
+        "question": "How many urine catheter output entries are recorded for 005-77687 during the current month?",
+        "query": "select count(*) from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '005-77687' ) ) and intakeoutput.cellpath like '%output%' and intakeoutput.celllabel = 'urine catheter' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2105-11-29 19:00:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            10
+          ]
+        ],
+        "answer": "10"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-11-29 22:00:00",
+        "question": "What is the change in urine catheter output entry count?",
+        "query": "select count(*) from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '005-77687' ) ) and intakeoutput.cellpath like '%output%' and intakeoutput.celllabel = 'urine catheter' and datetime(intakeoutput.intakeoutputtime,'start of month') = datetime('2105-11-29 22:00:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            11
+          ]
+        ],
+        "answer": "+1"
+      }
+    ],
+    "q_tag": "count the number of times that patient {patient_id} had a {output_name} output [time_filter_global1].",
+    "value": {
+      "output_name": "urine catheter",
+      "patient_id": "005-77687"
+    }
+  },
+  {
+    "scenario_id": "dyaHMscy9ynMtwda",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-09-14 09:00:00",
+        "question": "Which lab test was most recently recorded for patient 010-17316 in the past 9 months?",
+        "query": "select lab.labname from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '010-17316' ) ) and datetime(lab.labresulttime) >= datetime('2105-09-14 09:00:00','-9 month') order by lab.labresulttime DESC limit 1",
+        "sql_result": [
+          [
+            "chloride"
+          ]
+        ],
+        "answer": "chloride"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-09-14 09:22:00",
+        "question": "Which lab test is now most recently recorded?",
+        "query": "select lab.labname from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '010-17316' ) ) and datetime(lab.labresulttime) >= datetime('2105-09-14 09:22:00','-9 month') order by lab.labresulttime DESC limit 1",
+        "sql_result": [
+          [
+            "sodium"
+          ]
+        ],
+        "answer": "sodium"
+      }
+    ],
+    "q_tag": "what was the name of the lab test that patient {patient_id} [time_filter_exact1] received [time_filter_global1]?",
+    "value": {
+      "patient_id": "010-17316"
+    }
+  },
+  {
+    "scenario_id": "NWZcYqDooBOol8J5",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2103-08-30 21:27:00",
+        "question": "Has patient 006-40255 received any medications that were started within the last 5 years?",
+        "query": "select count(*)>0 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-40255' ) ) and datetime(medication.drugstarttime) >= datetime('2103-08-30 21:27:00','-5 year')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2103-08-30 21:45:00",
+        "question": "Were any new medications initiated?",
+        "query": "select count(*)>0 from medication where medication.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '006-40255' ) ) and datetime(medication.drugstarttime) >= datetime('2103-08-30 21:45:00','-5 year') and datetime(medication.drugstarttime) > datetime('2103-08-30 21:27:00')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": "006-40255"
+    }
+  },
+  {
+    "scenario_id": "rv0mUFngJ0tDcTXd",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2104-05-11 19:18:00",
+        "question": "During the current ICU stay for patient 004-34650, has sao2 ever been greater than 95.0?",
+        "query": "select count(*)>0 from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '004-34650' ) and patient.unitdischargetime is null ) and vitalperiodic.sao2 > 95.0 and vitalperiodic.sao2 is not null",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      },
+      {
+        "turn": 2,
+        "T2": "2104-05-11 19:33:00",
+        "question": "Has sao2 exceeded 95.0 again?",
+        "query": "select count(*)>0 from vitalperiodic where vitalperiodic.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '004-34650' ) and patient.unitdischargetime is null ) and vitalperiodic.sao2 is not null and vitalperiodic.sao2 > 95.0 and vitalperiodic.observationtime > '2104-05-11 19:18:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "has_verb the {vital_name} of patient {patient_id} been ever [comparison] than {vital_value} [time_filter_global1]?",
+    "value": {
+      "patient_id": "004-34650",
+      "vital_name": "sao2",
+      "vital_value": 95.0
+    }
+  },
+  {
+    "scenario_id": "eW7gOL0PL6k5dSAT",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2105-12-26 16:57:00",
+        "question": "During the current hospital admission for 022-187132, is the most recent pt - inr lower than the first pt - inr measured on this admission?",
+        "query": "select ( select lab.labresult from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '022-187132' and patient.hospitaldischargetime is null ) ) and lab.labname = 'pt - inr' order by lab.labresulttime desc limit 1 ) < ( select lab.labresult from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '022-187132' and patient.hospitaldischargetime is null ) ) and lab.labname = 'pt - inr' order by lab.labresulttime ASC limit 1 )",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No"
+      },
+      {
+        "turn": 2,
+        "T2": "2105-12-26 18:23:00",
+        "question": "Is the current pt - inr at or above the first value?",
+        "query": "select ( select lab.labresult from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '022-187132' and patient.hospitaldischargetime is null ) ) and lab.labname = 'pt - inr' order by lab.labresulttime desc limit 1 ) < ( select lab.labresult from lab where lab.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '022-187132' and patient.hospitaldischargetime is null ) ) and lab.labname = 'pt - inr' order by lab.labresulttime ASC limit 1 )",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "Yes"
+      }
+    ],
+    "q_tag": "is the value of {lab_name} of patient {patient_id} [time_filter_exact2] measured [time_filter_global2] [comparison] than the [time_filter_exact1] value measured [time_filter_global1]?",
+    "value": {
+      "lab_name": "pt - inr",
+      "patient_id": "022-187132"
+    }
+  },
+  {
+    "scenario_id": "g5BlmqTvyNp8dfHF",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2101-12-04 14:00:00",
+        "question": "What was the most recent intake recorded during this hospital admission for patient 022-166510?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '022-166510' ) ) and intakeoutput.cellpath like '%intake%' order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "amiodarone"
+          ]
+        ],
+        "answer": "amiodarone"
+      },
+      {
+        "turn": 2,
+        "T2": "2101-12-04 15:00:00",
+        "question": "Has the most recent intake changed?",
+        "query": "select intakeoutput.celllabel from intakeoutput where intakeoutput.patientunitstayid in ( select patient.patientunitstayid from patient where patient.patienthealthsystemstayid in ( select patient.patienthealthsystemstayid from patient where patient.uniquepid = '022-166510' ) ) and intakeoutput.cellpath like '%intake%' order by intakeoutput.intakeoutputtime DESC limit 1",
+        "sql_result": [
+          [
+            "amiodarone"
+          ]
+        ],
+        "answer": "No"
+      }
+    ],
+    "q_tag": "what was the name of the intake that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": "022-166510"
+    }
+  }
+]

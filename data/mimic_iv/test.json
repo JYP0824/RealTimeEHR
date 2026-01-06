@@ -1,0 +1,3873 @@
+[
+  {
+    "scenario_id": "YdzZJFuP28x5VEN6",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-06 17:41:00",
+        "question": "What was the most recent microbiology specimen type collected during patient 10020944's current hospital admission?",
+        "query": "SELECT DISTINCT microbiologyevents.spec_type_desc FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020944 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND microbiologyevents.charttime = ( SELECT DISTINCT microbiologyevents.charttime FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020944 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY microbiologyevents.charttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "swab"
+          ],
+          [
+            "mrsa screen"
+          ]
+        ],
+        "answer": "swab",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-06 18:00:00",
+        "question": "Is the latest microbiology specimen type still swab?",
+        "query": "SELECT DISTINCT microbiologyevents.spec_type_desc FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020944 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND microbiologyevents.charttime = ( SELECT DISTINCT microbiologyevents.charttime FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020944 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY microbiologyevents.charttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "mrsa screen"
+          ],
+          [
+            "sputum"
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the specimen that patient {patient_id} was [time_filter_exact1] tested [time_filter_global1]?",
+    "value": {
+      "patient_id": 10020944
+    }
+  },
+  {
+    "scenario_id": "Dw0DsinD0Jhj7rgI",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-26 17:33:00",
+        "question": "During patient 10018081's current ICU stay, is the most recent heart rate lower than the previous heart rate?",
+        "query": "SELECT ( SELECT chartevents.valuenum FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND icustays.outtime IS NULL ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'heart rate' AND d_items.linksto = 'chartevents' ) AND chartevents.charttime = ( SELECT DISTINCT chartevents.charttime FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND icustays.outtime IS NULL ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'heart rate' AND d_items.linksto = 'chartevents' ) ORDER BY chartevents.charttime DESC LIMIT 1 ) ) < ( SELECT chartevents.valuenum FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND icustays.outtime IS NULL ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'heart rate' AND d_items.linksto = 'chartevents' ) AND chartevents.charttime = ( SELECT DISTINCT chartevents.charttime FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND icustays.outtime IS NULL ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'heart rate' AND d_items.linksto = 'chartevents' ) ORDER BY chartevents.charttime DESC LIMIT 1 OFFSET 1 ) )",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-26 17:45:00",
+        "question": "Is the latest heart rate lower than the prior measurement?",
+        "query": "SELECT ( SELECT chartevents.valuenum FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND icustays.outtime IS NULL ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'heart rate' AND d_items.linksto = 'chartevents' ) AND chartevents.charttime = ( SELECT DISTINCT chartevents.charttime FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND icustays.outtime IS NULL ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'heart rate' AND d_items.linksto = 'chartevents' ) ORDER BY chartevents.charttime DESC LIMIT 1 ) ) < ( SELECT chartevents.valuenum FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND icustays.outtime IS NULL ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'heart rate' AND d_items.linksto = 'chartevents' ) AND chartevents.charttime = ( SELECT DISTINCT chartevents.charttime FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND icustays.outtime IS NULL ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'heart rate' AND d_items.linksto = 'chartevents' ) ORDER BY chartevents.charttime DESC LIMIT 1 OFFSET 1 ) )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Is the {vital_name} of patient {patient_id} [time_filter_exact2] measured [time_filter_global2] [comparison] than the [time_filter_exact1] value measured [time_filter_global1]?",
+    "value": {
+      "vital_name": "heart rate",
+      "patient_id": 10018081
+    }
+  },
+  {
+    "scenario_id": "Rf6cSSRG2qzqtQ1L",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-06 22:00:00",
+        "question": "What was the most recently prescribed medication for patient 10019385 within the past 19 months?",
+        "query": "SELECT DISTINCT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019385 ) AND datetime(prescriptions.starttime) >= datetime('2100-03-06 22:00:00','-19 month') AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019385 ) AND datetime(prescriptions.starttime) >= datetime('2100-03-06 22:00:00','-19 month') ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "docusate sodium"
+          ],
+          [
+            "acetaminophen"
+          ],
+          [
+            "sodium chloride 0.9%  flush"
+          ]
+        ],
+        "answer": "docusate sodium",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-06 23:00:00",
+        "question": "Has the most recent medication prescription changed?",
+        "query": "SELECT DISTINCT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019385 ) AND datetime(prescriptions.starttime) >= datetime('2100-03-06 23:00:00','-19 month') AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019385 ) AND datetime(prescriptions.starttime) >= datetime('2100-03-06 23:00:00','-19 month') ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "acetaminophen"
+          ],
+          [
+            "sodium chloride 0.9%  flush"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the drug that patient {patient_id} was [time_filter_exact1] prescribed [time_filter_global1]?",
+    "value": {
+      "patient_id": 10019385
+    }
+  },
+  {
+    "scenario_id": "kJgb3YBqo1Ty2lzI",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-16 12:25:00",
+        "question": "How much total input volume has patient 10010471 received during their current ICU stay(s) in this ongoing admission?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10010471 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            6100.0
+          ]
+        ],
+        "answer": "6100.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-16 12:37:00",
+        "question": "By how much did total input volume change?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10010471 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            6300.0
+          ]
+        ],
+        "answer": "+200.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10010471
+    }
+  },
+  {
+    "scenario_id": "4N78fTDVqjk8LgHm",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-23 20:00:00",
+        "question": "Which drugs has patient 10020740 been prescribed at least twice during this year?",
+        "query": "SELECT T1.drug FROM ( SELECT prescriptions.drug, COUNT( prescriptions.starttime ) AS C1 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020740 ) AND datetime(prescriptions.starttime,'start of year') = datetime('2100-03-23 20:00:00','start of year','-0 year') GROUP BY prescriptions.drug ) AS T1 WHERE T1.C1 >= 2",
+        "sql_result": [
+          [
+            "0.9% sodium chloride"
+          ]
+        ],
+        "answer": "0.9% sodium chloride",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-23 21:00:00",
+        "question": "Any new drugs with at least two prescriptions this year?",
+        "query": "SELECT T1.drug FROM ( SELECT prescriptions.drug, COUNT( prescriptions.starttime ) AS C1 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020740 ) AND datetime(prescriptions.starttime,'start of year') = datetime('2100-03-23 21:00:00','start of year','-0 year') GROUP BY prescriptions.drug ) AS T1 WHERE T1.C1 >= 2",
+        "sql_result": [
+          [
+            "0.9% sodium chloride"
+          ],
+          [
+            "bag"
+          ]
+        ],
+        "answer": "bag",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What was the name of the drug that patient {patient_id} were prescribed [n_times] [time_filter_global1]?",
+    "value": {
+      "patient_id": 10020740
+    }
+  },
+  {
+    "scenario_id": "XKou2kS7W1djh4gP",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-11-22 13:01:00",
+        "question": "Has patient 10019172 had any laboratory tests during this year?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019172 ) AND datetime(labevents.charttime,'start of year') = datetime('2100-11-22 13:01:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-11-22 13:13:00",
+        "question": "Were any new laboratory tests recorded?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019172 ) AND datetime(labevents.charttime,'start of year') = datetime('2100-11-22 13:13:00','start of year','-0 year') AND labevents.charttime > '2100-11-22 13:01:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} received any lab test [time_filter_global1]?",
+    "value": {
+      "patient_id": 10019172
+    }
+  },
+  {
+    "scenario_id": "4WsqX9TYRGYnhqsI",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-09-17 05:00:00",
+        "question": "What dose of morphine sulfate (oral solution) 2 mg/ml was most recently started this year for patient 10021312?",
+        "query": "SELECT prescriptions.dose_val_rx FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021312 ) AND prescriptions.drug = 'morphine sulfate (oral solution) 2 mg/ml' AND datetime(prescriptions.starttime,'start of year') = datetime('2100-09-17 05:00:00','start of year','-0 year') AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021312 ) AND prescriptions.drug = 'morphine sulfate (oral solution) 2 mg/ml' AND datetime(prescriptions.starttime,'start of year') = datetime('2100-09-17 05:00:00','start of year','-0 year') ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "10.0"
+          ]
+        ],
+        "answer": "10.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-09-17 08:00:00",
+        "question": "How much did the latest started dose of morphine sulfate (oral solution) 2 mg/ml change?",
+        "query": "SELECT prescriptions.dose_val_rx FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021312 ) AND prescriptions.drug = 'morphine sulfate (oral solution) 2 mg/ml' AND datetime(prescriptions.starttime,'start of year') = datetime('2100-09-17 08:00:00','start of year','-0 year') AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021312 ) AND prescriptions.drug = 'morphine sulfate (oral solution) 2 mg/ml' AND datetime(prescriptions.starttime,'start of year') = datetime('2100-09-17 08:00:00','start of year','-0 year') ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "20.0"
+          ]
+        ],
+        "answer": "+10.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the dose of {drug_name} that patient {patient_id} was [time_filter_exact1] prescribed [time_filter_global1]?",
+    "value": {
+      "patient_id": 10021312,
+      "drug_name": "morphine sulfate (oral solution) 2 mg/ml"
+    }
+  },
+  {
+    "scenario_id": "IlG0RerxFbeBEJmR",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-02-26 01:00:00",
+        "question": "What was the maximum ptt value during the current hospital admission for 10029291?",
+        "query": "SELECT MAX(labevents.valuenum) FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10029291 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'ptt' )",
+        "sql_result": [
+          [
+            150.0
+          ]
+        ],
+        "answer": "150.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-02-26 05:30:00",
+        "question": "Has the maximum ptt increased?",
+        "query": "SELECT MAX(labevents.valuenum) FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10029291 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'ptt' )",
+        "sql_result": [
+          [
+            150.0
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the [agg_function] {lab_name} value of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 10029291,
+      "lab_name": "ptt"
+    }
+  },
+  {
+    "scenario_id": "sLqYdpeRznjCo72m",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-06-07 08:49:00",
+        "question": "What is the total volume of inputs recorded during patient 10038999's current ICU stay?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038999 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            31705.0
+          ]
+        ],
+        "answer": "31705.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-06-07 09:00:00",
+        "question": "What is the change in fluid intake?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038999 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            32145.0
+          ]
+        ],
+        "answer": "+440.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10038999
+    }
+  },
+  {
+    "scenario_id": "ivveaz8dgFPMcxiY",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-01 21:48:00",
+        "question": "Were arterial blood pressure diastolic measurements within the normal range during patient 10029291's current ICU stay?",
+        "query": "SELECT 1 - COUNT(*)>0 FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10029291 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'arterial blood pressure diastolic' AND d_items.linksto = 'chartevents' ) AND chartevents.valuenum NOT BETWEEN diastolic_bp_lower AND diastolic_bp_upper",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-01 22:00:00",
+        "question": "Any new out-of-range arterial blood pressure diastolic values?",
+        "query": "SELECT 1 - COUNT(*)>0 FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10029291 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'arterial blood pressure diastolic' AND d_items.linksto = 'chartevents' ) AND chartevents.valuenum NOT BETWEEN diastolic_bp_lower AND diastolic_bp_upper AND chartevents.charttime > '2100-03-01 21:48:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb the {vital_name} of patient {patient_id} been normal [time_filter_global1]?",
+    "value": {
+      "patient_id": 10029291,
+      "vital_name": "arterial blood pressure diastolic"
+    }
+  },
+  {
+    "scenario_id": "O9qTeEhzVTy4njJS",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-26 18:00:00",
+        "question": "Which medications were started today for patient 10018081 that were not started yesterday?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-26 18:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-26 18:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "5% dextrose"
+          ],
+          [
+            "bag"
+          ],
+          [
+            "famotidine"
+          ],
+          [
+            "glucagon"
+          ],
+          [
+            "glucose gel"
+          ],
+          [
+            "insulin"
+          ],
+          [
+            "iso-osmotic sodium chloride"
+          ],
+          [
+            "lactated ringers"
+          ],
+          [
+            "soln"
+          ]
+        ],
+        "answer": "5% dextrose; bag; famotidine; glucagon; glucose gel; insulin; iso-osmotic sodium chloride; lactated ringers; soln",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-26 19:00:00",
+        "question": "Which additional medications were started today not started yesterday?",
+        "query": "SELECT DISTINCT p.drug FROM prescriptions p WHERE p.hadm_id IN (SELECT a.hadm_id FROM admissions a WHERE a.subject_id = 10018081) AND datetime(p.starttime) > datetime('2100-12-26 18:00:00')",
+        "sql_result": [
+          [
+            "lactated ringers"
+          ],
+          [
+            "acetaminophen iv"
+          ],
+          [
+            "potassium chloride (powder)"
+          ]
+        ],
+        "answer": "acetaminophen iv; potassium chloride (powder)",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": 10018081
+    }
+  },
+  {
+    "scenario_id": "tzB8ggiJ9SjGrJjf",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-31 11:49:00",
+        "question": "What is the total recorded output during patient 10018081's ongoing hospital admission from any ICU stays?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            14657.0
+          ]
+        ],
+        "answer": "14657.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-31 12:00:00",
+        "question": "How much has the cumulative ICU output changed?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            14907.0
+          ]
+        ],
+        "answer": "+250.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10018081
+    }
+  },
+  {
+    "scenario_id": "mzsG6oFwifCSwmgk",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-02-03 16:47:00",
+        "question": "Was the respiratory rate ever greater than 12.0 during ICU stays this year for patient 10020187?",
+        "query": "SELECT COUNT(*)>0 FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020187 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'respiratory rate' AND d_items.linksto = 'chartevents' ) AND chartevents.valuenum > 12.0 AND datetime(chartevents.charttime,'start of year') = datetime('2100-02-03 16:47:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-02-03 17:00:00",
+        "question": "Has the respiratory rate exceeded 12 again?",
+        "query": "SELECT COUNT(*)>0 FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020187 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'respiratory rate' AND d_items.linksto = 'chartevents' ) AND chartevents.valuenum > 12.0 AND datetime(chartevents.charttime,'start of year') = datetime('2100-02-03 17:00:00','start of year','-0 year') AND chartevents.charttime > '2100-02-03 16:47:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb the {vital_name} of patient {patient_id} been ever [comparison] than {vital_value} [time_filter_global1]?",
+    "value": {
+      "patient_id": 10020187,
+      "vital_name": "respiratory rate",
+      "vital_value": 12.0
+    }
+  },
+  {
+    "scenario_id": "C3RpKt2BLS54hJhk",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-08-14 21:10:00",
+        "question": "What specimen type was collected on the most recent microbiology test during patient 10007795's current hospital admission?",
+        "query": "SELECT DISTINCT microbiologyevents.spec_type_desc FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007795 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND microbiologyevents.charttime = ( SELECT DISTINCT microbiologyevents.charttime FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007795 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY microbiologyevents.charttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "blood culture"
+          ]
+        ],
+        "answer": "blood culture",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-08-14 21:25:00",
+        "question": "Has the most recent microbiology specimen type changed?",
+        "query": "SELECT DISTINCT microbiologyevents.spec_type_desc FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007795 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND microbiologyevents.charttime = ( SELECT DISTINCT microbiologyevents.charttime FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007795 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY microbiologyevents.charttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "catheter tip-iv"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the specimen that patient {patient_id} was [time_filter_exact1] tested [time_filter_global1]?",
+    "value": {
+      "patient_id": 10007795
+    }
+  },
+  {
+    "scenario_id": "ZbKygHL4HnIu3a51",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-23 12:58:00",
+        "question": "Has patient 10005817 had any platelet count tests during this month?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'platelet count' ) AND labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10005817 ) AND datetime(labevents.charttime,'start of month') = datetime('2100-12-23 12:58:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-23 14:40:00",
+        "question": "Any new platelet count results recorded?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'platelet count' ) AND labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10005817 ) AND labevents.charttime > '2100-12-23 12:58:00' AND datetime(labevents.charttime,'start of month') = datetime('2100-12-23 14:40:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} received a {lab_name} lab test [time_filter_global1]?",
+    "value": {
+      "lab_name": "platelet count",
+      "patient_id": 10005817
+    }
+  },
+  {
+    "scenario_id": "3wRmSVSbGYkqWyfA",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-22 10:45:00",
+        "question": "What is the total output volume recorded across all ICU stays during the current hospital admission for patient 10004235?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004235 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            3908.0
+          ]
+        ],
+        "answer": "3908.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-22 11:04:00",
+        "question": "By how much has the total ICU output volume changed?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004235 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            3933.0
+          ]
+        ],
+        "answer": "+25.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10004235
+    }
+  },
+  {
+    "scenario_id": "bRX1DdorOb2YX5sA",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-26 12:30:00",
+        "question": "What is the total amount of input recorded for patient 10011398 during the ICU stays of their current admission?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10011398 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            700.0
+          ]
+        ],
+        "answer": "700.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-26 12:44:00",
+        "question": "What is the change in total ICU input?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10011398 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            2200.0
+          ]
+        ],
+        "answer": "+1500.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10011398
+    }
+  },
+  {
+    "scenario_id": "xvuYjGLBeYHlYiJ6",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-06-04 01:10:00",
+        "question": "What was patient 10038999's most recent microbiology specimen type collected during this admission?",
+        "query": "SELECT DISTINCT microbiologyevents.spec_type_desc FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038999 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND microbiologyevents.charttime = ( SELECT DISTINCT microbiologyevents.charttime FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038999 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY microbiologyevents.charttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "blood culture"
+          ]
+        ],
+        "answer": "blood culture",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-06-04 01:36:00",
+        "question": "Is the latest microbiology specimen type still blood culture?",
+        "query": "SELECT DISTINCT microbiologyevents.spec_type_desc FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038999 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND microbiologyevents.charttime = ( SELECT DISTINCT microbiologyevents.charttime FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038999 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY microbiologyevents.charttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "blood culture"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the specimen that patient {patient_id} was [time_filter_exact1] tested [time_filter_global1]?",
+    "value": {
+      "patient_id": 10038999
+    }
+  },
+  {
+    "scenario_id": "KgtMpkuXOunvUmqH",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-02-28 21:04:00",
+        "question": "Has patient 10029291 had any laboratory tests during their admission?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10029291 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-02-28 21:15:00",
+        "question": "Any new laboratory results?",
+        "query": "SELECT COUNT(*) > 0 FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10029291 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) AND labevents.charttime > '2100-02-28 21:04:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} received any lab test [time_filter_global1]?",
+    "value": {
+      "patient_id": 10029291
+    }
+  },
+  {
+    "scenario_id": "709r1oyrRlrxrFS1",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-02 18:31:00",
+        "question": "What is the total fluid/output recorded during ICU stays for patient 10008454 over the past 192 days?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10008454 ) ) AND datetime(outputevents.charttime) >= datetime('2100-12-02 18:31:00','-192 day')",
+        "sql_result": [
+          [
+            200.0
+          ]
+        ],
+        "answer": "200.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-02 19:00:00",
+        "question": "By how much has the total ICU output changed?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10008454 ) ) AND datetime(outputevents.charttime) >= datetime('2100-12-02 19:00:00','-192 day')",
+        "sql_result": [
+          [
+            235.0
+          ]
+        ],
+        "answer": "+35.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10008454
+    }
+  },
+  {
+    "scenario_id": "qf2hAgcgm8AWAKrj",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-04-22 18:00:00",
+        "question": "Has patient 10007795 received any prescribed medications during their current hospital admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007795 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-04-22 19:00:00",
+        "question": "Were any new medications started during the current admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007795 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime > '2100-04-22 18:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10007795
+    }
+  },
+  {
+    "scenario_id": "Asr8ACao4EIy9R7O",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-26 18:00:00",
+        "question": "Which medications were newly started today compared with yesterday for patient 10018081?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-26 18:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-26 18:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "5% dextrose"
+          ],
+          [
+            "bag"
+          ],
+          [
+            "famotidine"
+          ],
+          [
+            "glucagon"
+          ],
+          [
+            "glucose gel"
+          ],
+          [
+            "insulin"
+          ],
+          [
+            "iso-osmotic sodium chloride"
+          ],
+          [
+            "lactated ringers"
+          ],
+          [
+            "soln"
+          ]
+        ],
+        "answer": "5% dextrose; bag; famotidine; glucagon; glucose gel; insulin; iso-osmotic sodium chloride; lactated ringers; soln",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-26 19:00:00",
+        "question": "Which medications were started since the prior review?",
+        "query": "SELECT DISTINCT p.drug FROM prescriptions p WHERE p.hadm_id IN (SELECT a.hadm_id FROM admissions a WHERE a.subject_id = 10018081) AND p.starttime > '2100-12-26 18:00:00'",
+        "sql_result": [
+          [
+            "lactated ringers"
+          ],
+          [
+            "acetaminophen iv"
+          ],
+          [
+            "potassium chloride (powder)"
+          ]
+        ],
+        "answer": "lactated ringers; acetaminophen iv; potassium chloride (powder)",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": 10018081
+    }
+  },
+  {
+    "scenario_id": "oyEBEnUwIvmjY8iR",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-31 20:41:00",
+        "question": "Which outputs were recorded at the most recent charted time during patient 10039831's current ICU stay?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "or ebl"
+          ],
+          [
+            "or urine"
+          ]
+        ],
+        "answer": "or ebl; or urine",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-31 21:04:00",
+        "question": "Which output is most recently charted now?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "foley"
+          ]
+        ],
+        "answer": "foley",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10039831
+    }
+  },
+  {
+    "scenario_id": "iCxGvJEu3t2qHy0l",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-02-01 08:00:00",
+        "question": "Has patient 10020187 had any medications prescribed during their admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020187 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-02-01 09:00:00",
+        "question": "Have any additional medications been prescribed?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020187 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime > '2100-02-01 08:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10020187
+    }
+  },
+  {
+    "scenario_id": "18Qllqxk1u8crT84",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-26 18:00:00",
+        "question": "Which medications were started today for patient 10018081 that were not on their prescriptions yesterday?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-26 18:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-26 18:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "5% dextrose"
+          ],
+          [
+            "bag"
+          ],
+          [
+            "famotidine"
+          ],
+          [
+            "glucagon"
+          ],
+          [
+            "glucose gel"
+          ],
+          [
+            "insulin"
+          ],
+          [
+            "iso-osmotic sodium chloride"
+          ],
+          [
+            "lactated ringers"
+          ],
+          [
+            "soln"
+          ]
+        ],
+        "answer": "5% dextrose; bag; famotidine; glucagon; glucose gel; insulin; iso-osmotic sodium chloride; lactated ringers; soln",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-26 19:00:00",
+        "question": "Which additional new medications were started today?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-26 19:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-26 19:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "5% dextrose"
+          ],
+          [
+            "acetaminophen iv"
+          ],
+          [
+            "bag"
+          ],
+          [
+            "famotidine"
+          ],
+          [
+            "glucagon"
+          ],
+          [
+            "glucose gel"
+          ],
+          [
+            "insulin"
+          ],
+          [
+            "iso-osmotic sodium chloride"
+          ],
+          [
+            "lactated ringers"
+          ],
+          [
+            "potassium chloride (powder)"
+          ],
+          [
+            "soln"
+          ]
+        ],
+        "answer": "acetaminophen iv; potassium chloride (powder)",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": 10018081
+    }
+  },
+  {
+    "scenario_id": "OhpF1greIwcua2kT",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-27 12:10:00",
+        "question": "What is the total input volume recorded during ICU stays this month for the patient with subject ID 10018081?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 ) ) AND datetime(inputevents.starttime,'start of month') = datetime('2100-12-27 12:10:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            30400.0
+          ]
+        ],
+        "answer": "30400.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-27 12:21:00",
+        "question": "How much has the total ICU input volume changed?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 ) ) AND datetime(inputevents.starttime,'start of month') = datetime('2100-12-27 12:21:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            31400.0
+          ]
+        ],
+        "answer": "+1000.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10018081
+    }
+  },
+  {
+    "scenario_id": "1z0t4iuLhAQdzyVQ",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-31 20:00:00",
+        "question": "Which medications were newly started today for patient 10039831 that were not started yesterday?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 20:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 20:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "0.9% sodium chloride (mini bag plus)"
+          ],
+          [
+            "ampicillin-sulbactam"
+          ]
+        ],
+        "answer": "0.9% sodium chloride (mini bag plus); ampicillin-sulbactam",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-31 21:00:00",
+        "question": "Which additional new-start medications were added today?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 21:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 21:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "0.9% sodium chloride (mini bag plus)"
+          ],
+          [
+            "5% dextrose"
+          ],
+          [
+            "ampicillin-sulbactam"
+          ],
+          [
+            "pantoprazole"
+          ],
+          [
+            "sodium chloride 0.9%  flush"
+          ],
+          [
+            "vial"
+          ]
+        ],
+        "answer": "5% dextrose; pantoprazole; sodium chloride 0.9%  flush; vial",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": 10039831
+    }
+  },
+  {
+    "scenario_id": "ceBXt8yi7L7BBooB",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-08-10 00:27:00",
+        "question": "What is the total documented intake volume during patient 10018501's current ICU stay?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018501 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            400.0
+          ]
+        ],
+        "answer": "400.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-08-10 02:00:00",
+        "question": "By how much has total intake volume changed?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018501 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            1400.0
+          ]
+        ],
+        "answer": "+1000.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10018501
+    }
+  },
+  {
+    "scenario_id": "zZBhKxBplwU51Drp",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-22 10:45:00",
+        "question": "Which output type was recorded at patient 10004235's most recent ICU output event during this year?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004235 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-03-22 10:45:00','start of year','-0 year') AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004235 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-03-22 10:45:00','start of year','-0 year') ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "tf residual"
+          ]
+        ],
+        "answer": "tf residual",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-22 11:04:00",
+        "question": "Has the most recent ICU output type changed?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004235 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-03-22 11:04:00','start of year','-0 year') AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004235 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-03-22 11:04:00','start of year','-0 year') ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "foley"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10004235
+    }
+  },
+  {
+    "scenario_id": "1gC5xmzYbxPzNyrh",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-11-24 09:29:00",
+        "question": "What is the cumulative output recorded across all ICU stays during patient 10007058's current hospital admission?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007058 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            1850.0
+          ]
+        ],
+        "answer": "1850.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-11-24 10:00:00",
+        "question": "By how much has cumulative ICU output changed?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007058 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            2225.0
+          ]
+        ],
+        "answer": "+375.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10007058
+    }
+  },
+  {
+    "scenario_id": "CP5a0LjzTDffBvQT",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-31 20:00:00",
+        "question": "Which medications were started today, but were not prescribed yesterday, for patient 10039831?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 20:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 20:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "0.9% sodium chloride (mini bag plus)"
+          ],
+          [
+            "ampicillin-sulbactam"
+          ]
+        ],
+        "answer": "0.9% sodium chloride (mini bag plus); ampicillin-sulbactam",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-31 21:00:00",
+        "question": "Which additional medications today not prescribed yesterday?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 21:00:00','start of day','-0 day') AND prescriptions.starttime > '2100-12-31 20:00:00' EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 21:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "5% dextrose"
+          ],
+          [
+            "pantoprazole"
+          ],
+          [
+            "sodium chloride 0.9%  flush"
+          ],
+          [
+            "vial"
+          ]
+        ],
+        "answer": "5% dextrose; pantoprazole; sodium chloride 0.9%  flush; vial",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": 10039831
+    }
+  },
+  {
+    "scenario_id": "5rG2YpteDKLHJwox",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-06-02 05:48:00",
+        "question": "Has patient 10002495 had a phosphate measured during this year?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'phosphate' ) AND labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10002495 ) AND datetime(labevents.charttime,'start of year') = datetime('2100-06-02 05:48:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-06-02 10:52:00",
+        "question": "Has phosphate been rechecked?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'phosphate' ) AND labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10002495 ) AND datetime(labevents.charttime,'start of year') = datetime('2100-06-02 10:52:00','start of year','-0 year') AND labevents.charttime > '2100-06-02 05:48:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} received a {lab_name} lab test [time_filter_global1]?",
+    "value": {
+      "patient_id": 10002495,
+      "lab_name": "phosphate"
+    }
+  },
+  {
+    "scenario_id": "AEzxneqbAYLuH8A7",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-10-29 20:37:00",
+        "question": "Has patient 10018845 had any laboratory tests during their ongoing hospital admission?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018845 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-10-30 03:11:00",
+        "question": "Were any new laboratory tests performed?",
+        "query": "SELECT COUNT(*) > 0 FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018845 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) AND labevents.charttime > '2100-10-29 20:37:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} received any lab test [time_filter_global1]?",
+    "value": {
+      "patient_id": 10018845
+    }
+  },
+  {
+    "scenario_id": "jgMuDCbmzaT6AiEG",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-10-29 05:03:00",
+        "question": "What is the total volume of inputs administered during patient 10018845's ICU stay in their current hospital admission?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018845 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            1000.0
+          ]
+        ],
+        "answer": "1000.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-10-29 05:53:00",
+        "question": "What is the change in cumulative ICU input volume?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018845 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            1100.0
+          ]
+        ],
+        "answer": "+100.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10018845
+    }
+  },
+  {
+    "scenario_id": "SohFefiehWC0LlKC",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-06-23 06:00:00",
+        "question": "Has patient 10022281 been prescribed any medication in the past 24 months?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10022281 ) AND datetime(prescriptions.starttime) >= datetime('2100-06-23 06:00:00','-24 month')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-06-23 07:00:00",
+        "question": "Were any new medications prescribed?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10022281 ) AND datetime(prescriptions.starttime) > datetime('2100-06-23 06:00:00') AND datetime(prescriptions.starttime) >= datetime('2100-06-23 07:00:00','-24 month')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10022281
+    }
+  },
+  {
+    "scenario_id": "2Bq7IRkwiByuA3iT",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-09-29 18:09:00",
+        "question": "Has patient 10038933 had any microbiology tests during any hospital admission so far this year?",
+        "query": "SELECT COUNT(*)>0 FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038933 ) AND datetime(microbiologyevents.charttime,'start of year') = datetime('2100-09-29 18:09:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-09-29 19:15:00",
+        "question": "Any new microbiology tests performed?",
+        "query": "SELECT COUNT(*)>0 FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038933 ) AND datetime(microbiologyevents.charttime,'start of year') = datetime('2100-09-29 19:15:00','start of year','-0 year') AND microbiologyevents.charttime > '2100-09-29 18:09:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} had any microbiology test result [time_filter_global1]?",
+    "value": {
+      "patient_id": 10038933
+    }
+  },
+  {
+    "scenario_id": "z0kmSn9wbrk4a8Iq",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-06-23 05:58:00",
+        "question": "What is the difference between total input and total output for patient 10015272 during their current hospital admission, summed across all ICU stays?",
+        "query": "SELECT ( SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10015272 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ) - ( SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10015272 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) )",
+        "sql_result": [
+          [
+            3350.0
+          ]
+        ],
+        "answer": "3350.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-06-23 06:32:00",
+        "question": "Change in net fluid balance?",
+        "query": "SELECT ( SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10015272 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ) - ( SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10015272 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) )",
+        "sql_result": [
+          [
+            3450.0
+          ]
+        ],
+        "answer": "+100.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What is the difference between the total volume of intake and output of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 10015272
+    }
+  },
+  {
+    "scenario_id": "Up3VVgC3OVXN9hYE",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-28 08:00:00",
+        "question": "During the ICU stay, what output type was recorded at the most recent output entry this year for patient 10020740?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020740 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-03-28 08:00:00','start of year','-0 year') AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020740 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-03-28 08:00:00','start of year','-0 year') ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "void"
+          ]
+        ],
+        "answer": "void",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-28 08:15:00",
+        "question": "Has the most recent recorded ICU output type changed?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020740 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-03-28 08:15:00','start of year','-0 year') AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020740 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-03-28 08:15:00','start of year','-0 year') ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "stool"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10020740
+    }
+  },
+  {
+    "scenario_id": "U1rQx9P0zqp0VAVx",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-26 18:00:00",
+        "question": "For patient 10018081, during the ICU stays what was the maximum daily weight recorded for each month?",
+        "query": "SELECT MAX(chartevents.valuenum) FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'daily weight' AND d_items.linksto = 'chartevents' ) GROUP BY strftime('%Y-%m',chartevents.charttime)",
+        "sql_result": [
+          [
+            90.7
+          ]
+        ],
+        "answer": "90.7",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-27 00:00:00",
+        "question": "What is the change in the monthly maximum daily weight?",
+        "query": "SELECT MAX(chartevents.valuenum) FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'daily weight' AND d_items.linksto = 'chartevents' ) GROUP BY strftime('%Y-%m',chartevents.charttime)",
+        "sql_result": [
+          [
+            94.0
+          ]
+        ],
+        "answer": "+3.3",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "List the [unit_average] [agg_function] weight of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "patient_id": 10018081
+    }
+  },
+  {
+    "scenario_id": "kVu21OS6J2dzCvBy",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-26 12:49:00",
+        "question": "What is the total measured output volume for patient 10011398 across all ICU stays during their current hospital admission?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10011398 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            130.0
+          ]
+        ],
+        "answer": "130.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-26 13:00:00",
+        "question": "How much has the total measured output volume changed?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10011398 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            374.0
+          ]
+        ],
+        "answer": "+244.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10011398
+    }
+  },
+  {
+    "scenario_id": "jnxtov60PrAVu9v4",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-06 22:00:00",
+        "question": "Has patient 10019385 been prescribed any medications in the past 10 months?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019385 ) AND datetime(prescriptions.starttime) >= datetime('2100-03-06 22:00:00','-10 month')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-06 23:00:00",
+        "question": "Were any new prescriptions initiated?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019385 ) AND datetime(prescriptions.starttime) >= datetime('2100-03-06 23:00:00','-10 month') AND datetime(prescriptions.starttime) > datetime('2100-03-06 22:00:00')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10019385
+    }
+  },
+  {
+    "scenario_id": "vLJXZLCPMYv0jQoj",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-04-03 07:30:00",
+        "question": "What is the lowest phosphate value recorded during the current hospital admission for patient 10021666?",
+        "query": "SELECT MIN(labevents.valuenum) FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021666 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'phosphate' )",
+        "sql_result": [
+          [
+            1.9
+          ]
+        ],
+        "answer": "1.9",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-04-03 17:40:00",
+        "question": "What is the change in the lowest phosphate value this admission?",
+        "query": "SELECT MIN(labevents.valuenum) FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021666 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'phosphate' )",
+        "sql_result": [
+          [
+            1.6
+          ]
+        ],
+        "answer": "-0.3",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the [agg_function] {lab_name} value of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 10021666,
+      "lab_name": "phosphate"
+    }
+  },
+  {
+    "scenario_id": "jxV3nn0vIwi87ZTy",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-08-19 20:00:00",
+        "question": "Does patient 10006580 have any prescriptions during their current hospital admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10006580 AND admissions.dischtime IS null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-08-19 21:00:00",
+        "question": "Any newly initiated prescriptions for this admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10006580 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime > '2100-08-19 20:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10006580
+    }
+  },
+  {
+    "scenario_id": "LputAugWabbXSo7J",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-08-28 06:18:00",
+        "question": "How many hospital admissions has patient 10002930 had so far in the current year?",
+        "query": "SELECT COUNT( DISTINCT admissions.hadm_id ) FROM admissions WHERE admissions.subject_id = 10002930 AND datetime(admissions.admittime,'start of year') = datetime('2100-08-28 06:18:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "1",
+        "type": "Discrete"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-08-28 11:45:00",
+        "question": "Change in year-to-date hospital admissions count?",
+        "query": "SELECT COUNT( DISTINCT admissions.hadm_id ) FROM admissions WHERE admissions.subject_id = 10002930 AND datetime(admissions.admittime,'start of year') = datetime('2100-08-28 11:45:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            2
+          ]
+        ],
+        "answer": "+1",
+        "type": "Discrete"
+      }
+    ],
+    "q_tag": "Count the number of hospital visits of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "patient_id": 10002930
+    }
+  },
+  {
+    "scenario_id": "eCvEFdki70ShTR1a",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-04-16 07:52:00",
+        "question": "What is the total volume of inputs during the ICU stay linked to subject 10024043's current hospital admission?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10024043 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            2050.0
+          ]
+        ],
+        "answer": "2050.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-04-16 08:07:00",
+        "question": "Change in cumulative fluid input volume?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10024043 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            3050.0
+          ]
+        ],
+        "answer": "+1000.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10024043
+    }
+  },
+  {
+    "scenario_id": "iiGgdXYx16EONROm",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-10-02 11:00:00",
+        "question": "What drug was most recently started during patient 10022017's current admission?",
+        "query": "SELECT DISTINCT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10022017 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10022017 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "insulin human regular"
+          ],
+          [
+            "0.9% sodium chloride"
+          ]
+        ],
+        "answer": "insulin human regular; 0.9% sodium chloride",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-10-02 12:00:00",
+        "question": "Which medications are now the most recently started this admission?",
+        "query": "SELECT DISTINCT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10022017 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10022017 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "glucagon"
+          ],
+          [
+            "lactated ringers"
+          ],
+          [
+            "ondansetron"
+          ],
+          [
+            "acetaminophen"
+          ],
+          [
+            "glucose gel"
+          ],
+          [
+            "syringe (iso-osmotic dextrose)"
+          ],
+          [
+            "5% dextrose"
+          ]
+        ],
+        "answer": "glucagon; lactated ringers; ondansetron; acetaminophen; glucose gel; syringe (iso-osmotic dextrose); 5% dextrose",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What was the name of the drug that patient {patient_id} was [time_filter_exact1] prescribed [time_filter_global1]?",
+    "value": {
+      "patient_id": 10022017
+    }
+  },
+  {
+    "scenario_id": "Rbaqvi0wIjfw5TaZ",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-11-03 07:45:00",
+        "question": "What is the total recorded input volume received by patient 10021938 during their current hospital admission across all ICU stays?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021938 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            790.0
+          ]
+        ],
+        "answer": "790.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-11-03 09:08:00",
+        "question": "By how much has the total recorded intake volume changed?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021938 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            940.0
+          ]
+        ],
+        "answer": "+150.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10021938
+    }
+  },
+  {
+    "scenario_id": "i815lSuw5iALpchD",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-11 09:24:00",
+        "question": "What is the total input volume recorded across ICU stays for patient 10020944 during the current year?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020944 ) ) AND datetime(inputevents.starttime,'start of year') = datetime('2100-03-11 09:24:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            26840.0
+          ]
+        ],
+        "answer": "26840.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-11 09:35:00",
+        "question": "By how much has the ICU fluid input changed?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020944 ) ) AND datetime(inputevents.starttime,'start of year') = datetime('2100-03-11 09:35:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            27340.0
+          ]
+        ],
+        "answer": "+500.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10020944
+    }
+  },
+  {
+    "scenario_id": "LcU0qgJMu5Hivxof",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-11-25 03:56:00",
+        "question": "What is the total volume of input recorded during the ICU stay for patient 10027602 in their admission?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10027602 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            9250.0
+          ]
+        ],
+        "answer": "9250.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-11-25 04:07:00",
+        "question": "What is the change in total ICU input volume?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10027602 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            10280.0
+          ]
+        ],
+        "answer": "+1030.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10027602
+    }
+  },
+  {
+    "scenario_id": "T7lF09owLQDGCcBs",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-04-13 22:31:00",
+        "question": "What is the total volume of input that patient 10001725 has received during the ICU stays?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10001725 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            2200.0
+          ]
+        ],
+        "answer": "2200.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-04-13 22:51:00",
+        "question": "What is the change in cumulative input volume?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10001725 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            2320.0
+          ]
+        ],
+        "answer": "+120.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10001725
+    }
+  },
+  {
+    "scenario_id": "Sv1O9XFzE2RpRUAW",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-15 22:47:00",
+        "question": "What was the most recent output item recorded for patient 10010471 during their current ICU stay?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10010471 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10010471 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "foley"
+          ]
+        ],
+        "answer": "foley",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-16 02:00:00",
+        "question": "Has the most recent output item changed from Foley catheter?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10010471 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10010471 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "foley"
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10010471
+    }
+  },
+  {
+    "scenario_id": "0pva89213YloV0GQ",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-03 20:00:00",
+        "question": "What is the total output recorded for patient 10004720 across all ICU stays in their current hospital admission?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004720 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            350.0
+          ]
+        ],
+        "answer": "350.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-03 21:00:00",
+        "question": "What is the change in total recorded output?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004720 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            415.0
+          ]
+        ],
+        "answer": "+65.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10004720
+    }
+  },
+  {
+    "scenario_id": "IcrEP930RAubSWgj",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-10-26 10:00:00",
+        "question": "What was the name of the most recent output recorded during the current ICU stay of patient 10031757?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10031757 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10031757 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "foley"
+          ]
+        ],
+        "answer": "foley",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-10-26 10:15:00",
+        "question": "Has the most recent output device changed?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10031757 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10031757 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "nasogastric"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10031757
+    }
+  },
+  {
+    "scenario_id": "Ea5zPpILAOEC1Ugx",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-07 09:14:00",
+        "question": "What is the total volume of inputs recorded for patient 10021487 during their ongoing ICU stays on this admission?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021487 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            10650.0
+          ]
+        ],
+        "answer": "10650.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-07 09:25:00",
+        "question": "What is the change in cumulative intake volume?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021487 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            11150.0
+          ]
+        ],
+        "answer": "+500.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10021487
+    }
+  },
+  {
+    "scenario_id": "rrEe1EEA8HJ7CKZH",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-22 15:00:00",
+        "question": "Which medications were started today for patient 10004733 that were not started yesterday?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004733 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-22 15:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004733 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-22 15:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "bisacodyl"
+          ],
+          [
+            "d5w"
+          ],
+          [
+            "heparin"
+          ],
+          [
+            "iso-osmotic dextrose"
+          ],
+          [
+            "lidocaine jelly 2% (urojet)"
+          ],
+          [
+            "sodium chloride 0.9%  flush"
+          ],
+          [
+            "vancomycin"
+          ]
+        ],
+        "answer": "bisacodyl; d5w; heparin; iso-osmotic dextrose; lidocaine jelly 2% (urojet); sodium chloride 0.9%  flush; vancomycin",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-22 16:00:00",
+        "question": "Which additional medications were newly started today?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004733 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-22 16:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004733 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-22 16:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "bag"
+          ],
+          [
+            "bisacodyl"
+          ],
+          [
+            "captopril"
+          ],
+          [
+            "d5w"
+          ],
+          [
+            "heparin"
+          ],
+          [
+            "iso-osmotic dextrose"
+          ],
+          [
+            "lidocaine jelly 2% (urojet)"
+          ],
+          [
+            "sodium chloride 0.9%  flush"
+          ],
+          [
+            "vancomycin"
+          ]
+        ],
+        "answer": "bag; captopril",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": 10004733
+    }
+  },
+  {
+    "scenario_id": "OA8BHf7kaumFVCeZ",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-09-15 16:00:00",
+        "question": "Does patient 10021312 have any medication prescriptions during their current hospital admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021312 AND admissions.dischtime IS null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-09-15 17:00:00",
+        "question": "Any new medication prescriptions initiated?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021312 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime > '2100-09-15 16:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10021312
+    }
+  },
+  {
+    "scenario_id": "AtqOcaV1mM7U8vnF",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-17 12:36:00",
+        "question": "What is the total hospital cost for patient 10020944 across all admissions during this year?",
+        "query": "SELECT SUM(cost.cost) FROM cost WHERE cost.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020944 ) AND datetime(cost.chargetime,'start of year') = datetime('2100-03-17 12:36:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            4989.37
+          ]
+        ],
+        "answer": "4989.37",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-17 13:00:00",
+        "question": "How much has the year-to-date total hospital cost changed?",
+        "query": "SELECT SUM(cost.cost) FROM cost WHERE cost.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020944 ) AND datetime(cost.chargetime,'start of year') = datetime('2100-03-17 13:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            5011.66
+          ]
+        ],
+        "answer": "+22.29",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What is_verb the total hospital cost of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 10020944
+    }
+  },
+  {
+    "scenario_id": "pT55JRdg4DM83roC",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-08-19 17:15:00",
+        "question": "What is the total foley output for patient 10006580 during their current ICU stay since 03/10/2100?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10006580 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'foley' AND d_items.linksto = 'outputevents' )",
+        "sql_result": [
+          [
+            195.0
+          ]
+        ],
+        "answer": "195.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-08-19 18:00:00",
+        "question": "What is the change in total foley output?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10006580 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'foley' AND d_items.linksto = 'outputevents' )",
+        "sql_result": [
+          [
+            445.0
+          ]
+        ],
+        "answer": "+250.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of {output_name} output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10006580,
+      "output_name": "foley"
+    }
+  },
+  {
+    "scenario_id": "T6B3G6GXje12XWRH",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-01-28 11:09:00",
+        "question": "Which output types were recorded at the most recent output charting during patient 10019917's current ICU stay?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019917 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019917 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "void"
+          ]
+        ],
+        "answer": "void",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-01-28 12:59:00",
+        "question": "Is urine still the only output type recorded on the latest chart?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019917 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019917 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "void"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10019917
+    }
+  },
+  {
+    "scenario_id": "6sLrwiqpnz3bvbfM",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-05-20 16:00:00",
+        "question": "Has patient 10016150 received any prescribed medication during their current hospital admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10016150 AND admissions.dischtime IS null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-05-20 17:00:00",
+        "question": "Have any additional medications been prescribed?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10016150 AND admissions.dischtime IS null ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime > '2100-05-20 16:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10016150
+    }
+  },
+  {
+    "scenario_id": "WG1vnfL8S8aSOWBV",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-01-12 02:48:00",
+        "question": "Has patient 10026406 had any laboratory tests during the current hospital admission?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10026406 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-01-12 10:00:00",
+        "question": "Any new laboratory results for this admission?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10026406 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) AND labevents.charttime > '2100-01-12 02:48:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} received any lab test [time_filter_global1]?",
+    "value": {
+      "patient_id": 10026406
+    }
+  },
+  {
+    "scenario_id": "qAYBrxfSX5mwM95O",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-05-12 10:00:00",
+        "question": "For patient 10009035, has any medication been prescribed during the current hospital admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10009035 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-05-12 11:00:00",
+        "question": "Any new medication orders placed during the current admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10009035 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime > '2100-05-12 10:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10009035
+    }
+  },
+  {
+    "scenario_id": "MrUwBSb1s9nFKYRi",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-07-11 10:29:00",
+        "question": "During patient 10007818's current hospital admission, what specimen type was collected on the most recent microbiology test?",
+        "query": "SELECT DISTINCT microbiologyevents.spec_type_desc FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007818 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND microbiologyevents.charttime = ( SELECT DISTINCT microbiologyevents.charttime FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007818 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY microbiologyevents.charttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "blood culture"
+          ]
+        ],
+        "answer": "blood culture",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-07-11 11:00:00",
+        "question": "Has the latest microbiology specimen type changed?",
+        "query": "SELECT DISTINCT microbiologyevents.spec_type_desc FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007818 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND microbiologyevents.charttime = ( SELECT DISTINCT microbiologyevents.charttime FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10007818 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY microbiologyevents.charttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "urine"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the specimen that patient {patient_id} was [time_filter_exact1] tested [time_filter_global1]?",
+    "value": {
+      "patient_id": 10007818
+    }
+  },
+  {
+    "scenario_id": "xDsKd2aIfXxCNGaB",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-07-01 14:00:00",
+        "question": "What are the total hospital charges for patient 10020786?",
+        "query": "SELECT SUM(cost.cost) FROM cost WHERE cost.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020786 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            174.92
+          ]
+        ],
+        "answer": "174.92",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-07-01 14:22:00",
+        "question": "By how much have hospital charges increased for the current admission?",
+        "query": "SELECT SUM(cost.cost) FROM cost WHERE cost.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10020786 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            556.0
+          ]
+        ],
+        "answer": "+381.08",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What is_verb the total hospital cost of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 10020786
+    }
+  },
+  {
+    "scenario_id": "6Xf8RZQTOuGZQ5Fh",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-10-06 22:44:00",
+        "question": "Which output type was recorded most recently during patient 10015860's current ICU stay?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10015860 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10015860 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "void"
+          ]
+        ],
+        "answer": "void",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-10-07 10:04:00",
+        "question": "Has the most recent output type changed?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10015860 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10015860 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "void"
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10015860
+    }
+  },
+  {
+    "scenario_id": "Xo7RcJ9WnMLgRfdn",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-31 20:00:00",
+        "question": "Which medications were newly started today for patient 10039831 compared with the medications prescribed yesterday?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 20:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 20:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "0.9% sodium chloride (mini bag plus)"
+          ],
+          [
+            "ampicillin-sulbactam"
+          ]
+        ],
+        "answer": "0.9% sodium chloride (mini bag plus); ampicillin-sulbactam",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-31 21:00:00",
+        "question": "Which additional medications were newly started?",
+        "query": "SELECT DISTINCT p.drug FROM prescriptions p WHERE p.hadm_id IN ( SELECT a.hadm_id FROM admissions a WHERE a.subject_id = 10039831 ) AND p.starttime > '2100-12-31 20:00:00'",
+        "sql_result": [
+          [
+            "vial"
+          ],
+          [
+            "pantoprazole"
+          ],
+          [
+            "sodium chloride 0.9%  flush"
+          ],
+          [
+            "5% dextrose"
+          ]
+        ],
+        "answer": "vial; pantoprazole; sodium chloride 0.9% flush; 5% dextrose",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": 10039831
+    }
+  },
+  {
+    "scenario_id": "KB2RJnrtTzuJLFXE",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-09-10 17:00:00",
+        "question": "What was the last output documented during patient 10027445's current ICU stay?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10027445 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10027445 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "foley"
+          ]
+        ],
+        "answer": "foley",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-09-10 17:13:00",
+        "question": "Has the latest documented output source changed?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10027445 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10027445 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "foley"
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10027445
+    }
+  },
+  {
+    "scenario_id": "iJI99bVtyemmidOe",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-05-18 17:30:00",
+        "question": "What output type was recorded most recently during patient 10035185's current ICU stay?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10035185 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10035185 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "chest tube #1"
+          ]
+        ],
+        "answer": "chest tube #1",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-05-18 17:45:00",
+        "question": "Has the most recent output type changed?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10035185 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10035185 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "or urine"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10035185
+    }
+  },
+  {
+    "scenario_id": "9hvMWT3fqqjn0c0p",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-26 18:00:00",
+        "question": "What was the maximum daily weight recorded each day during the current hospital admission in the ICU for patient 10018081?",
+        "query": "SELECT MAX(chartevents.valuenum) FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'daily weight' AND d_items.linksto = 'chartevents' ) GROUP BY strftime('%Y-%m-%d',chartevents.charttime)",
+        "sql_result": [
+          [
+            90.7
+          ]
+        ],
+        "answer": "90.7",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-27 00:00:00",
+        "question": "How much did the highest daily weight change?",
+        "query": "SELECT MAX(chartevents.valuenum) FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'daily weight' AND d_items.linksto = 'chartevents' ) GROUP BY strftime('%Y-%m-%d',chartevents.charttime)",
+        "sql_result": [
+          [
+            90.7
+          ],
+          [
+            94.0
+          ]
+        ],
+        "answer": "+3.3",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "List the [unit_average] [agg_function] weight of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "patient_id": 10018081
+    }
+  },
+  {
+    "scenario_id": "wVKdidHinLWjj7Ix",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-11-10 09:00:00",
+        "question": "Which medication was most recently started during the current hospital admission for patient 10039708?",
+        "query": "SELECT DISTINCT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039708 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039708 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "sodium chloride 0.9%"
+          ]
+        ],
+        "answer": "sodium chloride 0.9%",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-11-10 10:00:00",
+        "question": "Has the most recently started inpatient medication changed?",
+        "query": "SELECT DISTINCT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039708 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039708 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "sodium chloride 0.9%"
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the drug that patient {patient_id} was [time_filter_exact1] prescribed [time_filter_global1]?",
+    "value": {
+      "patient_id": 10039708
+    }
+  },
+  {
+    "scenario_id": "4LTppviE9R2fls9A",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-27 12:10:00",
+        "question": "What is the total input amount recorded for patient 10018081 during the current hospital admission across their ICU stays?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            30400.0
+          ]
+        ],
+        "answer": "30400.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-27 12:21:00",
+        "question": "How much has total fluid intake changed for this admission?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            31400.0
+          ]
+        ],
+        "answer": "+1000.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10018081
+    }
+  },
+  {
+    "scenario_id": "oLCVihZQpLvFas1Q",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-03 08:55:00",
+        "question": "Has patient 10001217 had any microbiology tests during any hospital admission so far this year?",
+        "query": "SELECT COUNT(*)>0 FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10001217 ) AND datetime(microbiologyevents.charttime,'start of year') = datetime('2100-12-03 08:55:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-03 10:20:00",
+        "question": "Were any additional inpatient microbiology tests recorded?",
+        "query": "SELECT COUNT(*)>0 FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10001217 ) AND datetime(microbiologyevents.charttime,'start of year') = datetime('2100-12-03 10:20:00','start of year','-0 year') AND microbiologyevents.charttime > '2100-12-03 08:55:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} had any microbiology test result [time_filter_global1]?",
+    "value": {
+      "patient_id": 10001217
+    }
+  },
+  {
+    "scenario_id": "DOOFrVIosvzzGrQR",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-11-23 13:00:00",
+        "question": "How many times was cerebral ventricular #1 recorded as an output for patient 10027602 during their current ICU stay in this ongoing admission?",
+        "query": "SELECT COUNT(*) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10027602 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'cerebral ventricular #1' AND d_items.linksto = 'outputevents' )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "1",
+        "type": "Discrete"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-11-23 14:00:00",
+        "question": "How many additional cerebral ventricular #1 outputs were recorded?",
+        "query": "SELECT COUNT(*) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10027602 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'cerebral ventricular #1' AND d_items.linksto = 'outputevents' )",
+        "sql_result": [
+          [
+            2
+          ]
+        ],
+        "answer": "+1",
+        "type": "Discrete"
+      }
+    ],
+    "q_tag": "Count the number of times that patient {patient_id} had a {output_name} output [time_filter_global1].",
+    "value": {
+      "output_name": "cerebral ventricular #1",
+      "patient_id": 10027602
+    }
+  },
+  {
+    "scenario_id": "FpizLt5tq4AHH8p0",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-08-19 20:00:00",
+        "question": "Has patient 10006580 received any prescriptions during their current hospital admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10006580 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-08-19 21:00:00",
+        "question": "Any new medication orders for this admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10006580 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime > '2100-08-19 20:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10006580
+    }
+  },
+  {
+    "scenario_id": "4cqbJLEzsi3njddt",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-17 00:00:00",
+        "question": "During this month, what is the total drainage bag volume recorded across 10021487's ICU stays?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021487 ) ) AND outputevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'drainage bag' AND d_items.linksto = 'outputevents' ) AND datetime(outputevents.charttime,'start of month') = datetime('2100-12-17 00:00:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            165.0
+          ]
+        ],
+        "answer": "165.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-17 02:00:00",
+        "question": "Change in this month's drainage bag output?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021487 ) ) AND outputevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'drainage bag' AND d_items.linksto = 'outputevents' ) AND datetime(outputevents.charttime,'start of month') = datetime('2100-12-17 02:00:00','start of month','-0 month')",
+        "sql_result": [
+          [
+            255.0
+          ]
+        ],
+        "answer": "+90.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of {output_name} output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "output_name": "drainage bag",
+      "patient_id": 10021487
+    }
+  },
+  {
+    "scenario_id": "RrK1YqNmAdc1aV6Y",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-04 11:14:00",
+        "question": "What is the maximum rdw value recorded for patient 10021118 during this year?",
+        "query": "SELECT MAX(labevents.valuenum) FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021118 ) AND labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'rdw' ) AND datetime(labevents.charttime,'start of year') = datetime('2100-12-04 11:14:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            12.7
+          ]
+        ],
+        "answer": "12.7",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-04 12:30:00",
+        "question": "Has the maximum rdw changed?",
+        "query": "SELECT MAX(labevents.valuenum) FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021118 ) AND labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'rdw' ) AND datetime(labevents.charttime,'start of year') = datetime('2100-12-04 12:30:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            12.7
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the [agg_function] {lab_name} value of patient {patient_id} [time_filter_global1]?",
+    "value": {
+      "patient_id": 10021118,
+      "lab_name": "rdw"
+    }
+  },
+  {
+    "scenario_id": "83lNsxLkagobLWet",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-09-07 09:15:00",
+        "question": "What was the total output during ICU stays for patient 10014078 so far this year?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10014078 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-09-07 09:15:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            690.0
+          ]
+        ],
+        "answer": "690.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-09-07 09:30:00",
+        "question": "By how much has total ICU output changed?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10014078 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-09-07 09:30:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            990.0
+          ]
+        ],
+        "answer": "+300.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10014078
+    }
+  },
+  {
+    "scenario_id": "e1jbzBwEq3oeLGcR",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-07-08 01:00:00",
+        "question": "What is patient 10016810's total output for their current ICU stay?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10016810 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            2500.0
+          ]
+        ],
+        "answer": "2500.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-07-08 01:25:00",
+        "question": "Change in total ICU output?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10016810 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            2890.0
+          ]
+        ],
+        "answer": "+390.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10016810
+    }
+  },
+  {
+    "scenario_id": "MYN2YOZqpuiN6ukv",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-23 14:00:00",
+        "question": "What is patient 10005817's total output during the ICU stays of their admission?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10005817 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            400.0
+          ]
+        ],
+        "answer": "400.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-23 14:15:00",
+        "question": "Change in cumulative ICU output volume?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10005817 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            440.0
+          ]
+        ],
+        "answer": "+40.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10005817
+    }
+  },
+  {
+    "scenario_id": "v4bCT4G5UGXylDqA",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-12 11:49:00",
+        "question": "Has patient 10021487 had any arterial blood pressure diastolic measurements below 31.0 during their current ICU stay?",
+        "query": "SELECT COUNT(*)>0 FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021487 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'arterial blood pressure diastolic' AND d_items.linksto = 'chartevents' ) AND chartevents.valuenum < 31.0",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-12 12:00:00",
+        "question": "Any new arterial blood pressure diastolic measurements below 31.0?",
+        "query": "SELECT COUNT(*)>0 FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021487 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'arterial blood pressure diastolic' AND d_items.linksto = 'chartevents' ) AND chartevents.valuenum < 31.0 AND chartevents.charttime > '2100-12-12 11:49:00'",
+        "sql_result": [
+          [
+            0
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb the {vital_name} of patient {patient_id} been ever [comparison] than {vital_value} [time_filter_global1]?",
+    "value": {
+      "patient_id": 10021487,
+      "vital_name": "arterial blood pressure diastolic",
+      "vital_value": 31.0
+    }
+  },
+  {
+    "scenario_id": "TGm08ujbWGHjbLoT",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-03 08:55:00",
+        "question": "Which specimen types were collected in the most recent microbiology test during subject 10001217's current hospital admission?",
+        "query": "SELECT DISTINCT microbiologyevents.spec_type_desc FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10001217 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND microbiologyevents.charttime = ( SELECT DISTINCT microbiologyevents.charttime FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10001217 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY microbiologyevents.charttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "blood culture"
+          ]
+        ],
+        "answer": "blood culture",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-03 10:20:00",
+        "question": "Has the most recent microbiology specimen type changed?",
+        "query": "SELECT DISTINCT microbiologyevents.spec_type_desc FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10001217 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND microbiologyevents.charttime = ( SELECT DISTINCT microbiologyevents.charttime FROM microbiologyevents WHERE microbiologyevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10001217 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY microbiologyevents.charttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "blood culture"
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the specimen that patient {patient_id} was [time_filter_exact1] tested [time_filter_global1]?",
+    "value": {
+      "patient_id": 10001217
+    }
+  },
+  {
+    "scenario_id": "UrHHUTCIERIL0p9t",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-15 22:47:00",
+        "question": "What is the total volume of foley recorded during patient 10010471's current hospital admission, summed across their ICU stays?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10010471 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'foley' AND d_items.linksto = 'outputevents' )",
+        "sql_result": [
+          [
+            15.0
+          ]
+        ],
+        "answer": "15.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-16 02:00:00",
+        "question": "By how much has it changed?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10010471 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'foley' AND d_items.linksto = 'outputevents' )",
+        "sql_result": [
+          [
+            25.0
+          ]
+        ],
+        "answer": "+10.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of {output_name} output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10010471,
+      "output_name": "foley"
+    }
+  },
+  {
+    "scenario_id": "jM0HZS9Yx53Ezd9m",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-08-28 06:18:00",
+        "question": "What diagnoses were recorded at the most recent diagnosis time during the current hospital admission for patient 10002930?",
+        "query": "SELECT DISTINCT d_icd_diagnoses.long_title FROM d_icd_diagnoses WHERE d_icd_diagnoses.icd_code IN ( SELECT diagnoses_icd.icd_code FROM diagnoses_icd WHERE diagnoses_icd.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10002930 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND diagnoses_icd.charttime = ( SELECT DISTINCT diagnoses_icd.charttime FROM diagnoses_icd WHERE diagnoses_icd.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10002930 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY diagnoses_icd.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "depressive disorder, not elsewhere classified"
+          ],
+          [
+            "personal history of traumatic brain injury"
+          ],
+          [
+            "alcohol abuse, unspecified"
+          ],
+          [
+            "mononeuritis of unspecified site"
+          ],
+          [
+            "asymptomatic human immunodeficiency virus [hiv] infection status"
+          ],
+          [
+            "panic disorder without agoraphobia"
+          ],
+          [
+            "unemployment"
+          ],
+          [
+            "cocaine abuse, unspecified"
+          ]
+        ],
+        "answer": "depressive disorder, not elsewhere classified; personal history of traumatic brain injury; alcohol abuse, unspecified; mononeuritis of unspecified site; asymptomatic human immunodeficiency virus [hiv] infection status; panic disorder without agoraphobia; unemployment; cocaine abuse, unspecified",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-08-28 11:45:00",
+        "question": "Which new diagnoses are recorded at the latest charted diagnosis time?",
+        "query": "SELECT DISTINCT d_icd_diagnoses.long_title FROM d_icd_diagnoses WHERE d_icd_diagnoses.icd_code IN ( SELECT diagnoses_icd.icd_code FROM diagnoses_icd WHERE diagnoses_icd.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10002930 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND diagnoses_icd.charttime = ( SELECT DISTINCT diagnoses_icd.charttime FROM diagnoses_icd WHERE diagnoses_icd.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10002930 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY diagnoses_icd.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "depressive disorder, not elsewhere classified"
+          ],
+          [
+            "alcohol abuse, unspecified"
+          ],
+          [
+            "asymptomatic human immunodeficiency virus [hiv] infection status"
+          ],
+          [
+            "suicidal ideation"
+          ],
+          [
+            "cocaine abuse, unspecified"
+          ]
+        ],
+        "answer": "suicidal ideation",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What was the name of the diagnosis that patient {patient_id} [time_filter_exact1] received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10002930
+    }
+  },
+  {
+    "scenario_id": "ZaWfU0GTy2Jm1M60",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-11 15:42:00",
+        "question": "What is the total foley output recorded during ICU stays for patient 10021487 during this year?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021487 ) ) AND outputevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'foley' AND d_items.linksto = 'outputevents' ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-12-11 15:42:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            17473.0
+          ]
+        ],
+        "answer": "17473.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-11 16:00:00",
+        "question": "How much has total foley output changed?",
+        "query": "SELECT SUM(outputevents.value) FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021487 ) ) AND outputevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'foley' AND d_items.linksto = 'outputevents' ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-12-11 16:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            17513.0
+          ]
+        ],
+        "answer": "+40.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of {output_name} output that patient {patient_id} had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10021487,
+      "output_name": "foley"
+    }
+  },
+  {
+    "scenario_id": "TOmWDhsy8MFzqEgy",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-10-13 06:00:00",
+        "question": "What was the most recent output type recorded for patient 10038081 during their current ICU stay?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "foley"
+          ]
+        ],
+        "answer": "foley",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-10-13 06:16:00",
+        "question": "Has the most recent output device type changed?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "oral gastric"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10038081
+    }
+  },
+  {
+    "scenario_id": "8F5VTUTgLMKzbvYn",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-15 20:45:00",
+        "question": "What was the daily maximum respiratory rate for patient 10010471 during their ICU stays over the past 14 days?",
+        "query": "SELECT MAX(chartevents.valuenum) FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10010471 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'respiratory rate' AND d_items.linksto = 'chartevents' ) AND datetime(chartevents.charttime) >= datetime('2100-12-15 20:45:00','-14 day') GROUP BY strftime('%Y-%m-%d',chartevents.charttime)",
+        "sql_result": [
+          [
+            19.0
+          ]
+        ],
+        "answer": "19.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-15 21:00:00",
+        "question": "By how much did the daily maximum respiratory rate change?",
+        "query": "SELECT MAX(chartevents.valuenum) FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10010471 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'respiratory rate' AND d_items.linksto = 'chartevents' ) AND datetime(chartevents.charttime) >= datetime('2100-12-15 21:00:00','-14 day') GROUP BY strftime('%Y-%m-%d',chartevents.charttime)",
+        "sql_result": [
+          [
+            24.0
+          ]
+        ],
+        "answer": "+5.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "List the [unit_average] [agg_function] {vital_name} of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "patient_id": 10010471,
+      "vital_name": "respiratory rate"
+    }
+  },
+  {
+    "scenario_id": "o6SeWjWuneZg5ibU",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-24 02:14:00",
+        "question": "Has patient 10005817 had any laboratory tests in the last 4 months?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10005817 ) AND datetime(labevents.charttime) >= datetime('2100-12-24 02:14:00','-4 month')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-24 02:26:00",
+        "question": "Any new laboratory results recorded?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10005817 ) AND datetime(labevents.charttime) >= datetime('2100-12-24 02:26:00','-4 month') AND datetime(labevents.charttime) > datetime('2100-12-24 02:14:00')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} received any lab test [time_filter_global1]?",
+    "value": {
+      "patient_id": 10005817
+    }
+  },
+  {
+    "scenario_id": "l79EhXm30HKadMOx",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-11-23 20:00:00",
+        "question": "What was the total prescribed dose of 5% dextrose for patient 10019172 during this year?",
+        "query": "SELECT SUM(prescriptions.dose_val_rx) FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019172 ) AND prescriptions.drug = '5% dextrose' AND datetime(prescriptions.starttime,'start of year') = datetime('2100-11-23 20:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            2250.0
+          ]
+        ],
+        "answer": "2250.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-11-23 23:00:00",
+        "question": "How much has the cumulative 5% dextrose dose changed?",
+        "query": "SELECT SUM(prescriptions.dose_val_rx) FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10019172 ) AND prescriptions.drug = '5% dextrose' AND datetime(prescriptions.starttime,'start of year') = datetime('2100-11-23 23:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            2500.0
+          ]
+        ],
+        "answer": "+250.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total amount of dose of {drug_name} that patient {patient_id} were prescribed [time_filter_global1]?",
+    "value": {
+      "patient_id": 10019172,
+      "drug_name": "5% dextrose"
+    }
+  },
+  {
+    "scenario_id": "SbaouNsYA7lwdJok",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-09-15 16:00:00",
+        "question": "Has patient 10021312 been prescribed or received any medications during this year?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021312 ) AND datetime(prescriptions.starttime,'start of year') = datetime('2100-09-15 16:00:00','start of year','-0 year')",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-09-15 17:00:00",
+        "question": "Any new medication orders placed?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10021312 ) AND datetime(prescriptions.starttime,'start of year') = datetime('2100-09-15 17:00:00','start of year','-0 year') AND prescriptions.starttime > '2100-09-15 16:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10021312
+    }
+  },
+  {
+    "scenario_id": "hmMqipBVFx8mIXuc",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-26 18:00:00",
+        "question": "During the ongoing hospital admission for patient 10018081, report ICU daily weight measurements, averaging multiple weights per day.",
+        "query": "SELECT AVG(chartevents.valuenum) FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'daily weight' AND d_items.linksto = 'chartevents' ) GROUP BY strftime('%Y-%m-%d',chartevents.charttime)",
+        "sql_result": [
+          [
+            90.7
+          ]
+        ],
+        "answer": "90.7",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-27 00:00:00",
+        "question": "How much has the daily weight changed?",
+        "query": "SELECT AVG(chartevents.valuenum) FROM chartevents WHERE chartevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018081 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND chartevents.itemid IN ( SELECT d_items.itemid FROM d_items WHERE d_items.label = 'daily weight' AND d_items.linksto = 'chartevents' ) GROUP BY strftime('%Y-%m-%d',chartevents.charttime)",
+        "sql_result": [
+          [
+            90.7
+          ],
+          [
+            94.0
+          ]
+        ],
+        "answer": "+3.3",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "List the [unit_average] [agg_function] weight of patient {patient_id} [time_filter_global1].",
+    "value": {
+      "patient_id": 10018081
+    }
+  },
+  {
+    "scenario_id": "beXlUdKpNGcpuqR5",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-07-24 08:54:00",
+        "question": "What is the total input volume recorded during the patient's current ICU stay for patient 10016742?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10016742 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            6800.0
+          ]
+        ],
+        "answer": "6800.0",
+        "type": "Continuous"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-07-24 09:05:00",
+        "question": "Change in total input volume for the current ICU stay?",
+        "query": "SELECT SUM(inputevents.totalamount) FROM inputevents WHERE inputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10016742 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            7880.0
+          ]
+        ],
+        "answer": "+1080.0",
+        "type": "Continuous"
+      }
+    ],
+    "q_tag": "What was the total volume of intake that patient {patient_id} received [time_filter_global1]?",
+    "value": {
+      "patient_id": 10016742
+    }
+  },
+  {
+    "scenario_id": "75AN7RPuRpWMoqeI",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-05-18 17:30:00",
+        "question": "Which output types were recorded in the ICU for patient 10035185 at their most recent output charting during this year?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10035185 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-05-18 17:30:00','start of year','-0 year') AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10035185 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-05-18 17:30:00','start of year','-0 year') ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "chest tube #1"
+          ]
+        ],
+        "answer": "chest tube #1",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-05-18 17:45:00",
+        "question": "Has the latest ICU output type changed?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10035185 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-05-18 17:45:00','start of year','-0 year') AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10035185 ) ) AND datetime(outputevents.charttime,'start of year') = datetime('2100-05-18 17:45:00','start of year','-0 year') ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "or urine"
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10035185
+    }
+  },
+  {
+    "scenario_id": "151t8bg1njN7BxWI",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-08 06:15:00",
+        "question": "Did patient 10015931 have a magnesium level checked during their current hospital admission?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'magnesium' ) AND labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10015931 AND admissions.dischtime IS null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-08 17:15:00",
+        "question": "Was a repeat magnesium level obtained?",
+        "query": "SELECT COUNT(*)>0 FROM labevents WHERE labevents.itemid IN ( SELECT d_labitems.itemid FROM d_labitems WHERE d_labitems.label = 'magnesium' ) AND labevents.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10015931 AND admissions.dischtime IS null ORDER BY admissions.admittime DESC LIMIT 1 ) AND labevents.charttime > '2100-12-08 06:15:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} received a {lab_name} lab test [time_filter_global1]?",
+    "value": {
+      "lab_name": "magnesium",
+      "patient_id": 10015931
+    }
+  },
+  {
+    "scenario_id": "E8PpzzND8QtxLyfk",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-07-07 03:00:00",
+        "question": "Has any medication been prescribed during patient 10016810's current hospital admission?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10016810 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-07-07 04:00:00",
+        "question": "Were any new medication orders placed?",
+        "query": "SELECT COUNT(*)>0 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10016810 AND admissions.dischtime IS NULL ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime > '2100-07-07 03:00:00'",
+        "sql_result": [
+          [
+            1
+          ]
+        ],
+        "answer": "Yes",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "Has_verb patient {patient_id} been prescribed any medication [time_filter_global1]?",
+    "value": {
+      "patient_id": 10016810
+    }
+  },
+  {
+    "scenario_id": "22NxiV6dR2XnSOEQ",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-20 02:00:00",
+        "question": "During the current hospital admission, what drug was most recently prescribed for patient 10005817?",
+        "query": "SELECT DISTINCT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10005817 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10005817 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "insulin"
+          ],
+          [
+            "atorvastatin"
+          ],
+          [
+            "furosemide"
+          ],
+          [
+            "glucagon"
+          ],
+          [
+            "metoprolol tartrate"
+          ],
+          [
+            "aspirin ec"
+          ],
+          [
+            "docusate sodium"
+          ],
+          [
+            "glucose gel"
+          ],
+          [
+            "sodium chloride 0.9%  flush"
+          ]
+        ],
+        "answer": "insulin",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-20 03:00:00",
+        "question": "What is the latest prescribed medication?",
+        "query": "SELECT DISTINCT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10005817 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10005817 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "0.9% sodium chloride"
+          ]
+        ],
+        "answer": "0.9% sodium chloride",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What was the name of the drug that patient {patient_id} was [time_filter_exact1] prescribed [time_filter_global1]?",
+    "value": {
+      "patient_id": 10005817
+    }
+  },
+  {
+    "scenario_id": "6rplfkezPQrXnc7V",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-05-21 19:00:00",
+        "question": "What was the most recent ICU output recorded for patient 10018423 during their current hospital admission?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018423 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018423 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "foley"
+          ]
+        ],
+        "answer": "foley",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-05-21 19:15:00",
+        "question": "What are the most recent ICU output types now?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018423 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10018423 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "chest tube #2"
+          ],
+          [
+            "chest tube #1"
+          ]
+        ],
+        "answer": "chest tube #2; chest tube #1",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10018423
+    }
+  },
+  {
+    "scenario_id": "8BKZ4hwp5Zb9yTCS",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-06-05 11:00:00",
+        "question": "What output type was most recently recorded for patient 10038999 during their current ICU stay?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038999 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038999 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "foley"
+          ]
+        ],
+        "answer": "foley",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-06-05 11:16:00",
+        "question": "Is it still from a Foley catheter?",
+        "query": "SELECT DISTINCT d_items.label FROM d_items WHERE d_items.itemid IN ( SELECT outputevents.itemid FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038999 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) AND outputevents.charttime = ( SELECT DISTINCT outputevents.charttime FROM outputevents WHERE outputevents.stay_id IN ( SELECT icustays.stay_id FROM icustays WHERE icustays.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10038999 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ) ORDER BY outputevents.charttime DESC LIMIT 1 ) )",
+        "sql_result": [
+          [
+            "l pleural #1"
+          ]
+        ],
+        "answer": "No",
+        "type": "Nominal (Binary)"
+      }
+    ],
+    "q_tag": "What was the name of the output that patient {patient_id} [time_filter_exact1] had [time_filter_global1]?",
+    "value": {
+      "patient_id": 10038999
+    }
+  },
+  {
+    "scenario_id": "QaPkB7v6jSViNC4E",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-31 20:00:00",
+        "question": "Which medications were started today for patient 10039831 that were not started yesterday?",
+        "query": "SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 20:00:00','start of day','-0 day') EXCEPT SELECT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10039831 ) AND datetime(prescriptions.starttime,'start of day') = datetime('2100-12-31 20:00:00','start of day','-1 day')",
+        "sql_result": [
+          [
+            "0.9% sodium chloride (mini bag plus)"
+          ],
+          [
+            "ampicillin-sulbactam"
+          ]
+        ],
+        "answer": "0.9% sodium chloride (mini bag plus); ampicillin-sulbactam",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-31 21:00:00",
+        "question": "Which additional medications were started today that were not started yesterday?",
+        "query": "SELECT DISTINCT p.drug FROM prescriptions p WHERE p.hadm_id IN ( SELECT a.hadm_id FROM admissions a WHERE a.subject_id = 10039831 ) AND datetime(p.starttime) > datetime('2100-12-31 20:00:00')",
+        "sql_result": [
+          [
+            "vial"
+          ],
+          [
+            "pantoprazole"
+          ],
+          [
+            "sodium chloride 0.9%  flush"
+          ],
+          [
+            "5% dextrose"
+          ]
+        ],
+        "answer": "vial; pantoprazole; sodium chloride 0.9%  flush; 5% dextrose",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What is the new prescription of patient {patient_id} [time_filter_global2] compared to the prescription [time_filter_global1]?",
+    "value": {
+      "patient_id": 10039831
+    }
+  },
+  {
+    "scenario_id": "rpK23muSNMBy7IQi",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-03-19 18:00:00",
+        "question": "What medication(s) was prescribed two or more times during patient 10004235's current hospital admission?",
+        "query": "SELECT T1.drug FROM ( SELECT prescriptions.drug, COUNT( prescriptions.starttime ) AS C1 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004235 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) GROUP BY prescriptions.drug ) AS T1 WHERE T1.C1 >= 2",
+        "sql_result": [
+          [
+            "bisacodyl"
+          ],
+          [
+            "prismasate (b32 k2)"
+          ]
+        ],
+        "answer": "bisacodyl; prismasate (b32 k2)",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-03-19 19:00:00",
+        "question": "Which additional medications have been ordered at least twice this admission?",
+        "query": "SELECT T1.drug FROM ( SELECT prescriptions.drug, COUNT( prescriptions.starttime ) AS C1 FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10004235 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) GROUP BY prescriptions.drug ) AS T1 WHERE T1.C1 >= 2",
+        "sql_result": [
+          [
+            "5% dextrose"
+          ],
+          [
+            "bisacodyl"
+          ],
+          [
+            "iso-osmotic dextrose"
+          ],
+          [
+            "prismasate (b32 k2)"
+          ],
+          [
+            "soln"
+          ],
+          [
+            "vancomycin"
+          ]
+        ],
+        "answer": "5% dextrose; iso-osmotic dextrose; soln; vancomycin",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What was the name of the drug that patient {patient_id} were prescribed [n_times] [time_filter_global1]?",
+    "value": {
+      "patient_id": 10004235
+    }
+  },
+  {
+    "scenario_id": "XiJHkd0pDl3i5ZH4",
+    "turns": [
+      {
+        "turn": 1,
+        "T1": "2100-12-02 19:00:00",
+        "question": "During patient 10008454's current hospital admission, which medication was started most recently?",
+        "query": "SELECT DISTINCT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10008454 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10008454 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "0.9% sodium chloride"
+          ],
+          [
+            "famotidine"
+          ],
+          [
+            "potassium chloride (powder)"
+          ],
+          [
+            "sw"
+          ],
+          [
+            "5% dextrose"
+          ]
+        ],
+        "answer": "0.9% sodium chloride; famotidine; potassium chloride (powder); sw; 5% dextrose",
+        "type": "Nominal"
+      },
+      {
+        "turn": 2,
+        "T2": "2100-12-02 20:00:00",
+        "question": "Which medications are now the most recently initiated?",
+        "query": "SELECT DISTINCT prescriptions.drug FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10008454 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) AND prescriptions.starttime = ( SELECT DISTINCT prescriptions.starttime FROM prescriptions WHERE prescriptions.hadm_id IN ( SELECT admissions.hadm_id FROM admissions WHERE admissions.subject_id = 10008454 and admissions.dischtime is null ORDER BY admissions.admittime DESC LIMIT 1 ) ORDER BY prescriptions.starttime DESC LIMIT 1 )",
+        "sql_result": [
+          [
+            "docusate sodium"
+          ],
+          [
+            "sodium chloride 0.9%  flush"
+          ]
+        ],
+        "answer": "docusate sodium; sodium chloride 0.9%  flush",
+        "type": "Nominal"
+      }
+    ],
+    "q_tag": "What was the name of the drug that patient {patient_id} was [time_filter_exact1] prescribed [time_filter_global1]?",
+    "value": {
+      "patient_id": 10008454
+    }
+  }
+]
